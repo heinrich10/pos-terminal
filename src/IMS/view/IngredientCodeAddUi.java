@@ -4,7 +4,7 @@
  */
 package IMS.view;
 
-import IMS.controller.InventoryIngredientAddCont;
+import IMS.controller.IngredientCodeAddController;
 import IMS.domain.IngredientCode;
 import IMS.domain.IngredientType;
 import IMS.service.IngredientCodeService;
@@ -131,10 +131,9 @@ public class IngredientCodeAddUi extends javax.swing.JFrame {
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
         // TODO add your handling code here:
-        System.out.println(jComboBoxType.getSelectedIndex());
         IngredientCode ic = new IngredientCode(jTextFieldCode.getText(), jTextFieldBrand.getText(), jTextFieldName.getText(), arrInventoryType.get(jComboBoxType.getSelectedIndex()).getCode());
         ics.saveIngredientCode(ic);
-        iiui.refresh();
+        iiui.loadTable();
         this.setVisible(false);
         
         
@@ -156,7 +155,7 @@ public class IngredientCodeAddUi extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void initComboBox() {
-        InventoryIngredientAddCont iiac = new InventoryIngredientAddCont();
+        IngredientCodeAddController iiac = new IngredientCodeAddController();
         arrInventoryType = iiac.loadInventoryType();
         
         

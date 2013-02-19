@@ -5,13 +5,11 @@
 package IMS.view;
 
 import IMS.controller.IngredientCodeController;
-import IMS.controller.InventoryController;
 import IMS.domain.IngredientCode;
-import IMS.domain.Inventory;
 import IMS.service.IngredientCodeService;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -28,7 +26,7 @@ public class IngredientCodeUi extends javax.swing.JFrame {
         ics = new IngredientCodeService();
         iic = new IngredientCodeController();
         initComponents();
-        initTable();
+        loadTable();
         
         iiau = new IngredientCodeAddUi(this, ics);
     }
@@ -124,7 +122,7 @@ public class IngredientCodeUi extends javax.swing.JFrame {
                 this, "Are you sure you want to delete?", "Confirm Delete", JOptionPane.YES_NO_OPTION)
                 == JOptionPane.YES_OPTION){
             ics.deleteIngredientCode((String)jTable1.getValueAt(jTable1.getSelectedRow(), 0));
-            refresh();
+            loadTable();
         }
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
@@ -170,57 +168,27 @@ public class IngredientCodeUi extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 
-    public void refresh() {
-       initTable();
-    }
     
-    public void initTable(){
+    
+    public void loadTable(){
         
         ArrayList<IngredientCode> arrIngredientCode;
         
         
         arrIngredientCode = iic.loadIngredientCode();
-        
-        final int size = arrIngredientCode.size();
-        
-        AbstractTableModel model = new AbstractTableModel() {
-            
-            Object[][] data = new Object[size][size];
-            String[] columnName = {"Code_ingredient", "Quantity", "Price", "Stock_date"};
-            
-            @Override
-            public int getRowCount() {
-                return data.length;
-            }
-
-            @Override
-            public int getColumnCount() {
-                return columnName.length;
-            }
-
-            @Override
-            public Object getValueAt(int rowIndex, int columnIndex) {
-                return data[rowIndex][columnIndex];
-            }
-            
-            @Override
-            public void setValueAt(Object value, int row, int col){
-                data[row][col] = value;
-                fireTableCellUpdated(row, col);
-            }
-            
-        };
-        
+        String[][] cell = new String[arrIngredientCode.size()][arrIngredientCode.size()];
         for(int i = 0; i < arrIngredientCode.size(); i++){
-            model.setValueAt(arrIngredientCode.get(i).getCode(), i, 0);
-            model.setValueAt(arrIngredientCode.get(i).getBrand(), i, 1);
-            model.setValueAt(arrIngredientCode.get(i).getName(), i, 2);
-            model.setValueAt(arrIngredientCode.get(i).getType(), i, 3);
+            cell[i][0] = arrIngredientCode.get(i).getCode();
+            cell[i][1] = arrIngredientCode.get(i).getBrand();
+            cell[i][2] = arrIngredientCode.get(i).getName();
+            cell[i][3] = arrIngredientCode.get(i).getType();
         }
-              
+       
+        String[] col = {"Ingredient Code", "Quantity", "Price", "Stock date"};
+        jTable1.setModel(new DefaultTableModel(cell, col));
         
         
-        jTable1.setModel(model);
+        
     }
     
     

@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author Heinrich
  */
-public class InventoryIngredientAddCont {
+public class IngredientCodeAddController {
     
     public ArrayList<IngredientType> loadInventoryType(){
         ArrayList<IngredientType> arrIngredientType = null;
