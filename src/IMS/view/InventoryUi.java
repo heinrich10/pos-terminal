@@ -7,14 +7,14 @@ package IMS.view;
 import IMS.controller.InventoryController;
 import IMS.domain.Inventory;
 import java.util.ArrayList;
-import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Heinrich
  */
 public class InventoryUi extends javax.swing.JFrame {
-    
+    private InventoryPendingUi ipu;
     
     
     /**
@@ -23,6 +23,7 @@ public class InventoryUi extends javax.swing.JFrame {
     public InventoryUi() {
         initComponents();
         initTable();
+        ipu = new InventoryPendingUi(this);
         
     }
 
@@ -36,10 +37,9 @@ public class InventoryUi extends javax.swing.JFrame {
     private void initComponents() {
 
         jButtonRefresh = new javax.swing.JButton();
-        jButtonPlaceOrder = new javax.swing.JButton();
+        jButtonOrder = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButtonPO = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,16 +50,14 @@ public class InventoryUi extends javax.swing.JFrame {
             }
         });
 
-        jButtonPlaceOrder.setText("Place Order");
-        jButtonPlaceOrder.addActionListener(new java.awt.event.ActionListener() {
+        jButtonOrder.setText("View Orders");
+        jButtonOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonPlaceOrderActionPerformed(evt);
+                jButtonOrderActionPerformed(evt);
             }
         });
 
         jScrollPane1.setViewportView(jTable1);
-
-        jButtonPO.setText("Pending Order");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -70,9 +68,7 @@ public class InventoryUi extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonPlaceOrder)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonPO)
+                        .addComponent(jButtonOrder)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonRefresh)))
                 .addContainerGap())
@@ -83,8 +79,7 @@ public class InventoryUi extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonRefresh)
-                    .addComponent(jButtonPlaceOrder)
-                    .addComponent(jButtonPO))
+                    .addComponent(jButtonOrder))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -93,14 +88,15 @@ public class InventoryUi extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonPlaceOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlaceOrderActionPerformed
+    private void jButtonOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrderActionPerformed
         // TODO add your handling code here:
+        ipu.setVisible(true);
         
-    }//GEN-LAST:event_jButtonPlaceOrderActionPerformed
+    }//GEN-LAST:event_jButtonOrderActionPerformed
 
     private void jButtonRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefreshActionPerformed
         // TODO add your handling code here:
-       
+       initTable();
     }//GEN-LAST:event_jButtonRefreshActionPerformed
 
     /**
@@ -138,8 +134,7 @@ public class InventoryUi extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonPO;
-    private javax.swing.JButton jButtonPlaceOrder;
+    private javax.swing.JButton jButtonOrder;
     private javax.swing.JButton jButtonRefresh;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
@@ -148,48 +143,18 @@ public class InventoryUi extends javax.swing.JFrame {
     private void initTable() {
         
         ArrayList<Inventory> arrInventory;
-        
         InventoryController ic = new InventoryController();
         arrInventory = ic.loadInventory();
         
-        final int size = arrInventory.size();
-        
-        AbstractTableModel model = new AbstractTableModel() {
-            
-            Object[][] data = new Object[size][size];
-            String[] columnName = {"Code_ingredient", "Quantity", "Price", "Stock_date"};
-            @Override
-            public int getRowCount() {
-                return data.length;
-            }
-
-            @Override
-            public int getColumnCount() {
-                return columnName.length;
-            }
-
-            @Override
-            public Object getValueAt(int rowIndex, int columnIndex) {
-                return data[rowIndex][columnIndex];
-            }
-            
-            @Override
-            public void setValueAt(Object value, int row, int col){
-                data[row][col] = value;
-                fireTableCellUpdated(row, col);
-            }
-            
-        };
-        
+        Object[][] cell = new String[arrInventory.size()][arrInventory.size()];
         for(int i = 0; i < arrInventory.size(); i++){
-            model.setValueAt(arrInventory.get(i).getCodeIngredient(), i, 0);
-            model.setValueAt(arrInventory.get(i).getQuantity(), i, 1);
-            model.setValueAt(arrInventory.get(i).getPrice(), i, 2);
-            model.setValueAt(arrInventory.get(i).getStockDate(), i, 3);
+            cell[i][0] = arrInventory.get(i).getCodeIngredient();
+            cell[i][1] = String.valueOf(arrInventory.get(i).getQuantity());
+            cell[i][2] = String.valueOf(arrInventory.get(i).getPrice());
+            cell[i][3] = arrInventory.get(i).getStockDate().toString();
         }
-              
-        
-        
-        jTable1.setModel(model);
-    }
+       
+        String[] col = {"Code_ingredient", "Quantity", "Price", "Stock_date"};
+        jTable1.setModel(new DefaultTableModel(cell, col));
+     }
 }

@@ -19,10 +19,8 @@ import java.util.logging.Logger;
  *
  * @author Heinrich
  */
-public class InventoryController {
-     
-
-    public ArrayList loadInventory(){
+public class InventoryPendingController {
+    public ArrayList loadInventoryPending(){
         
         ArrayList<Inventory> arrInventory = null;
         try {
@@ -30,13 +28,13 @@ public class InventoryController {
             Connection con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
             
             PreparedStatement pst = con.prepareStatement(
-                    "SELECT  code_ingredient, quantity, price, stock_date FROM IM_INGREDIENT_INVENTORY");
+                    "SELECT  code_ingredient, quantity, price, order_date FROM IM_INGREDIENT_PENDING");
             ResultSet rs = pst.executeQuery();
             
             arrInventory = new ArrayList();
             
             while(rs.next()){
-                arrInventory.add(new Inventory(rs.getString("code_ingredient"), rs.getInt("quantity"), rs.getDouble("price"), rs.getDate("stock_date")));
+                arrInventory.add(new Inventory(rs.getString("code_ingredient"), rs.getInt("quantity"), rs.getDouble("price"), rs.getDate("order_date")));
             }
            
         } catch (SQLException ex) {
@@ -46,5 +44,4 @@ public class InventoryController {
          return arrInventory;
         
     }
-          
 }

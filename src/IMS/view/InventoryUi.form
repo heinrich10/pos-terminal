@@ -27,9 +27,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jScrollPane1" pref="497" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Component id="jButtonPlaceOrder" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButtonPO" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonOrder" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jButtonRefresh" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -44,8 +42,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButtonRefresh" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButtonPlaceOrder" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButtonPO" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonOrder" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="344" max="-2" attributes="0"/>
@@ -63,12 +60,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonRefreshActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButtonPlaceOrder">
+    <Component class="javax.swing.JButton" name="jButtonOrder">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Place Order"/>
+        <Property name="text" type="java.lang.String" value="View Orders"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonPlaceOrderActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonOrderActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -90,10 +87,5 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="jButtonPO">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Pending Order"/>
-      </Properties>
-    </Component>
   </SubComponents>
 </Form>
