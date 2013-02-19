@@ -4,8 +4,11 @@
  */
 package IMS.view;
 
+import IMS.controller.IngredientCodeController;
 import IMS.controller.InventoryController;
+import IMS.domain.IngredientCode;
 import IMS.domain.Inventory;
+import IMS.service.IngredientCodeService;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
@@ -13,17 +16,20 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Heinrich
  */
-public class InventoryUi extends javax.swing.JFrame {
-    
-    
-    
+public class IngredientCodeUi extends javax.swing.JFrame {
+    private IngredientCodeAddUi iiau;
+    private IngredientCodeService ics;
+    private IngredientCodeController iic;
     /**
-     * Creates new form InventoryUi
+     * Creates new form IngredientCodeUi
      */
-    public InventoryUi() {
+    public IngredientCodeUi() {
+        ics = new IngredientCodeService();
+        iic = new IngredientCodeController();
         initComponents();
         initTable();
         
+        iiau = new IngredientCodeAddUi(this, ics);
     }
 
     /**
@@ -35,31 +41,37 @@ public class InventoryUi extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButtonRefresh = new javax.swing.JButton();
-        jButtonPlaceOrder = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButtonPO = new javax.swing.JButton();
+        jButtonAdd = new javax.swing.JButton();
+        jButtonDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButtonRefresh.setText("Refresh");
-        jButtonRefresh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRefreshActionPerformed(evt);
-            }
-        });
+        jLabel1.setText("Ingredient Maintenance");
 
-        jButtonPlaceOrder.setText("Place Order");
-        jButtonPlaceOrder.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonPlaceOrderActionPerformed(evt);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        });
-
+        ));
         jScrollPane1.setViewportView(jTable1);
 
-        jButtonPO.setText("Pending Order");
+        jButtonAdd.setText("Add");
+        jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddActionPerformed(evt);
+            }
+        });
+
+        jButtonDelete.setText("Delete");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -68,40 +80,37 @@ public class InventoryUi extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
+                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonPlaceOrder)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonPO)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonRefresh)))
-                .addContainerGap())
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonDelete))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonRefresh)
-                    .addComponent(jButtonPlaceOrder)
-                    .addComponent(jButtonPO))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonAdd)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonDelete))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonPlaceOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlaceOrderActionPerformed
+    private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
         // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jButtonPlaceOrderActionPerformed
-
-    private void jButtonRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefreshActionPerformed
-        // TODO add your handling code here:
-       
-    }//GEN-LAST:event_jButtonRefreshActionPerformed
+        iiau.setVisible(true);
+    }//GEN-LAST:event_jButtonAddActionPerformed
 
     /**
      * @param args the command line arguments
@@ -120,44 +129,49 @@ public class InventoryUi extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InventoryUi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IngredientCodeUi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InventoryUi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IngredientCodeUi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InventoryUi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IngredientCodeUi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InventoryUi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IngredientCodeUi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new InventoryUi().setVisible(true);
+                new IngredientCodeUi().setVisible(true);
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonPO;
-    private javax.swing.JButton jButtonPlaceOrder;
-    private javax.swing.JButton jButtonRefresh;
+    private javax.swing.JButton jButtonAdd;
+    private javax.swing.JButton jButtonDelete;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 
-    private void initTable() {
+    public void refresh() {
+       initTable();
+    }
+    
+    public void initTable(){
         
-        ArrayList<Inventory> arrInventory;
+        ArrayList<IngredientCode> arrIngredientCode;
         
-        InventoryController ic = new InventoryController();
-        arrInventory = ic.loadInventory();
         
-        final int size = arrInventory.size();
+        arrIngredientCode = iic.loadIngredientCode();
+        
+        final int size = arrIngredientCode.size();
         
         AbstractTableModel model = new AbstractTableModel() {
             
             Object[][] data = new Object[size][size];
             String[] columnName = {"Code_ingredient", "Quantity", "Price", "Stock_date"};
+            
             @Override
             public int getRowCount() {
                 return data.length;
@@ -181,15 +195,17 @@ public class InventoryUi extends javax.swing.JFrame {
             
         };
         
-        for(int i = 0; i < arrInventory.size(); i++){
-            model.setValueAt(arrInventory.get(i).getCodeIngredient(), i, 0);
-            model.setValueAt(arrInventory.get(i).getQuantity(), i, 1);
-            model.setValueAt(arrInventory.get(i).getPrice(), i, 2);
-            model.setValueAt(arrInventory.get(i).getStockDate(), i, 3);
+        for(int i = 0; i < arrIngredientCode.size(); i++){
+            model.setValueAt(arrIngredientCode.get(i).getCode(), i, 0);
+            model.setValueAt(arrIngredientCode.get(i).getBrand(), i, 1);
+            model.setValueAt(arrIngredientCode.get(i).getName(), i, 2);
+            model.setValueAt(arrIngredientCode.get(i).getType(), i, 3);
         }
               
         
         
         jTable1.setModel(model);
     }
+    
+    
 }
