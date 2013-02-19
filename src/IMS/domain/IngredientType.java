@@ -8,32 +8,21 @@ package IMS.domain;
  *
  * @author Heinrich
  */
-public class InventoryCode {
+public class IngredientType {
     private String code;
-    private String brand;
     private String name;
-    private String type;
     
-    public InventoryCode(String code, String brand, String name, String type){
+    public IngredientType(String code, String name){
         this.code = code;
-        this.brand = brand;
         this.name = name;
-        this.type = type;
     }
     
     public String getCode(){
         return code;
     }
     
-    public String getBrand(){
-        return brand;
-    }
-    
     public String getName(){
         return name;
     }
     
-    public String getType(){
-        return type;
-    }
 }
