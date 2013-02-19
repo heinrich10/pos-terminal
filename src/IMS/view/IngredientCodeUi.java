@@ -10,6 +10,7 @@ import IMS.domain.IngredientCode;
 import IMS.domain.Inventory;
 import IMS.service.IngredientCodeService;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -72,6 +73,11 @@ public class IngredientCodeUi extends javax.swing.JFrame {
         });
 
         jButtonDelete.setText("Delete");
+        jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -111,6 +117,16 @@ public class IngredientCodeUi extends javax.swing.JFrame {
         // TODO add your handling code here:
         iiau.setVisible(true);
     }//GEN-LAST:event_jButtonAddActionPerformed
+
+    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
+        // TODO add your handling code here:
+        if(JOptionPane.showConfirmDialog(
+                this, "Are you sure you want to delete?", "Confirm Delete", JOptionPane.YES_NO_OPTION)
+                == JOptionPane.YES_OPTION){
+            ics.deleteIngredientCode((String)jTable1.getValueAt(jTable1.getSelectedRow(), 0));
+            refresh();
+        }
+    }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     /**
      * @param args the command line arguments
