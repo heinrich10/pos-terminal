@@ -5,9 +5,7 @@
 package IMS.controller;
 
 import Core.domain.DBEntity;
-import IMS.domain.Inventory;
-import IMS.domain.InventoryCode;
-import IMS.domain.InventoryType;
+import IMS.domain.IngredientType;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -23,8 +21,8 @@ import java.util.logging.Logger;
  */
 public class InventoryIngredientAddCont {
     
-    public ArrayList<InventoryType> loadInventoryType(){
-        ArrayList<InventoryType> arrInventoryType = null;
+    public ArrayList<IngredientType> loadInventoryType(){
+        ArrayList<IngredientType> arrIngredientType = null;
         
         try {
             DBEntity db = new DBEntity();
@@ -34,16 +32,16 @@ public class InventoryIngredientAddCont {
                     "SELECT  code, name FROM IM_INGREDIENT_TYPE");
             ResultSet rs = pst.executeQuery();
             
-            arrInventoryType = new ArrayList();
+            arrIngredientType = new ArrayList();
             
             while(rs.next()){
-                arrInventoryType.add(new InventoryType(rs.getString("code"), rs.getString("name")));
+                arrIngredientType.add(new IngredientType(rs.getString("code"), rs.getString("name")));
             }
            
         } catch (SQLException ex) {
             Logger.getLogger(InventoryController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-         return arrInventoryType;
+         return arrIngredientType;
     }
 }

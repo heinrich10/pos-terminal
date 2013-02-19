@@ -5,7 +5,7 @@
 package IMS.controller;
 
 import Core.domain.DBEntity;
-import IMS.domain.InventoryCode;
+import IMS.domain.IngredientCode;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -19,9 +19,9 @@ import java.util.logging.Logger;
  *
  * @author Heinrich
  */
-public class InventoryIngredientCont {
-    public ArrayList<InventoryCode> loadInventoryCode(){
-        ArrayList<InventoryCode> arrInventoryCode = null;
+public class IngredientCodeController {
+    public ArrayList<IngredientCode> loadIngredientCode(){
+        ArrayList<IngredientCode> arrInventoryCode = null;
         
         try {
             DBEntity db = new DBEntity();
@@ -34,7 +34,7 @@ public class InventoryIngredientCont {
             arrInventoryCode = new ArrayList();
             
             while(rs.next()){
-                arrInventoryCode.add(new InventoryCode(rs.getString("code"), rs.getString("brand"), rs.getString("name"), rs.getString("type")));
+                arrInventoryCode.add(new IngredientCode(rs.getString("code"), rs.getString("brand"), rs.getString("name"), rs.getString("type")));
             }
            
         } catch (SQLException ex) {
