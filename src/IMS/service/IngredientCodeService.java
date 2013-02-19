@@ -7,14 +7,10 @@ package IMS.service;
 import Core.domain.DBEntity;
 import IMS.controller.InventoryController;
 import IMS.domain.IngredientCode;
-import IMS.domain.IngredientType;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -41,6 +37,26 @@ public class IngredientCodeService {
             pst.setString(6, ic.getBrand());
             pst.setString(7, ic.getName());
             pst.setString(8, ic.getType());
+            
+            pst.executeUpdate();
+            
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(InventoryController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+    
+    public void deleteIngredientCode(String code){
+        try {
+            DBEntity db = new DBEntity();
+            Connection con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
+            
+            PreparedStatement pst = con.prepareStatement("delete from IM_INGREDIENT_CODE where code = ?");
+           
+            pst.setString(1, code);
+           
             
             pst.executeUpdate();
             
