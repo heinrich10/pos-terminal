@@ -180,7 +180,7 @@ public class CashUi extends javax.swing.JPanel {
     private void calculate() {
         double recievedAmt = Double.valueOf(jTextFieldRecievedAmt.getText());
         cashController.setRecievedAmt(recievedAmt);
-        cashController.setPrice(transactionController.getMenuItem().getPrice());
+        //cashController.setPrice(transactionController.getMenuItem().getPrice());
         jTextFieldChange.setText(String.valueOf(cashController.calculateChange()));
         
     }

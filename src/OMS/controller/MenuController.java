@@ -20,8 +20,7 @@ import java.util.logging.Logger;
  * @author Heinrich
  */
 public class MenuController {
-    
-    
+  
     public ArrayList loadRecipe(){
         ArrayList<MenuItem> arrRecipe = null;
         try {
@@ -52,4 +51,7 @@ public class MenuController {
         return arrRecipe;
     }
     
+    public void createOrderList(){
+        
+    }
 }

@@ -12,18 +12,30 @@ import java.sql.Date;
  */
 public class Inventory {
     
+    private int itemNumber;
+    private String name;
     private String codeIngredient;
     private int quantity;
     private double price;
     private Date stockDate;
     
-    public Inventory(String codeIngredient, int quantity, double price, Date stockDate){
+    public Inventory(int itemNumber, String name, String codeIngredient, int quantity, double price, Date stockDate){
         
+        this.itemNumber = itemNumber;
+        this.name = name;
         this.codeIngredient = codeIngredient;
         this.quantity = quantity;
         this.price = price;
         this.stockDate = stockDate;
      }
+    
+    public int getItemNumber(){
+        return itemNumber;
+    }
+    
+    public String getName(){
+        return name;
+    }
     
     public String getCodeIngredient(){
         return codeIngredient;

@@ -140,21 +140,23 @@ public class InventoryUi extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 
-    private void initTable() {
+    public void initTable() {
         
         ArrayList<Inventory> arrInventory;
         InventoryController ic = new InventoryController();
         arrInventory = ic.loadInventory();
-        
-        Object[][] cell = new String[arrInventory.size()][arrInventory.size()];
+        String[] col = {"Name", "Quantity", "Price", "Stock_date"};
+        Object[][] cell = new String[arrInventory.size()][col.length];
         for(int i = 0; i < arrInventory.size(); i++){
-            cell[i][0] = arrInventory.get(i).getCodeIngredient();
+            cell[i][0] = arrInventory.get(i).getName();
             cell[i][1] = String.valueOf(arrInventory.get(i).getQuantity());
             cell[i][2] = String.valueOf(arrInventory.get(i).getPrice());
             cell[i][3] = arrInventory.get(i).getStockDate().toString();
         }
        
-        String[] col = {"Code_ingredient", "Quantity", "Price", "Stock_date"};
+        
         jTable1.setModel(new DefaultTableModel(cell, col));
      }
+    
+     
 }

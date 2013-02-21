@@ -238,11 +238,8 @@ public class MenuUi extends javax.swing.JPanel {
   
     private void menuButton1ActionPerformed(MenuItem menuItem) {
         System.out.println(menuItem.getPrice());
-        mainUI.setRecipe(menuItem);
-        transactionController.setMenuItem(menuItem);
-        mainUI.moveToBooster();
-        //put to transaction
-        
+        transactionController.addMenuItem(menuItem);
+        mainUI.addOrder(menuItem);
     }
     
 }
