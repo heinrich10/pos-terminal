@@ -22,9 +22,6 @@ public class MenuUi extends javax.swing.JPanel {
     
     private MainUi mainUI;
     private TransactionController transactionController;
-    public MenuUi(){
-        
-    }
     
     public MenuUi(MainUi mainUI, TransactionController transactionController) {
     
@@ -32,7 +29,6 @@ public class MenuUi extends javax.swing.JPanel {
         this.transactionController = transactionController;
         
         initComponents();
-        
         MenuController menuController = new MenuController();
         
         try{
@@ -63,14 +59,8 @@ public class MenuUi extends javax.swing.JPanel {
         menuButton7 = new javax.swing.JButton();
         menuButton8 = new javax.swing.JButton();
         menuButton9 = new javax.swing.JButton();
-        jButtonNext = new javax.swing.JButton();
 
         menuButton1.setText("Menu 1");
-        menuButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuButton1ActionPerformed(evt);
-            }
-        });
 
         menuButton2.setText("Menu 2");
 
@@ -87,8 +77,6 @@ public class MenuUi extends javax.swing.JPanel {
         menuButton8.setText("Menu 8");
 
         menuButton9.setText("Menu 9");
-
-        jButtonNext.setText("Next");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -116,10 +104,6 @@ public class MenuUi extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(menuButton9)))
                 .addContainerGap(153, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonNext)
-                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,18 +123,11 @@ public class MenuUi extends javax.swing.JPanel {
                     .addComponent(menuButton3)
                     .addComponent(menuButton6)
                     .addComponent(menuButton9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
-                .addComponent(jButtonNext)
-                .addContainerGap())
+                .addContainerGap(184, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void menuButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuButton1ActionPerformed
       
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonNext;
     private javax.swing.JButton menuButton1;
     private javax.swing.JButton menuButton2;
     private javax.swing.JButton menuButton3;
@@ -237,9 +214,8 @@ public class MenuUi extends javax.swing.JPanel {
     }
   
     private void menuButton1ActionPerformed(MenuItem menuItem) {
-        System.out.println(menuItem.getPrice());
         transactionController.addMenuItem(menuItem);
-        mainUI.addOrder(menuItem);
+        mainUI.refreshTable();
     }
     
 }

@@ -8,6 +8,7 @@ import OMS.domain.Cash;
 import OMS.domain.MenuItem;
 import OMS.domain.OrderList;
 import OMS.domain.Transaction;
+import OMS.service.TransactionService;
 import java.util.ArrayList;
 
 /**
@@ -16,28 +17,14 @@ import java.util.ArrayList;
  */
 public class TransactionController {
     private ArrayList<MenuItem> arrMenuItem;
-    private Cash cash;
     private Transaction transaction;
+    private TransactionService transactionService;
+    private Cash cash;
     
     public TransactionController(){
         transaction = new Transaction();
         arrMenuItem = new ArrayList();
-    }
-    
-    public void resetTransaction(){
-        transaction.reset();
-    }
-    
-    public Transaction getTransaction(){
-        return transaction;
-    }
-    
-    public void setCash(Cash cash){
-        transaction.setCash(cash);
-    }
-    
-    public Cash getCash(){
-        return transaction.getCash();
+        transactionService = new TransactionService();
     }
     
     public void addMenuItem(MenuItem menuItem){
@@ -48,14 +35,28 @@ public class TransactionController {
         arrMenuItem.remove(index);
     }
     
+    public void setCash(Cash cash){
+        this.cash = cash;
+    }
+    
+    public Transaction getTransaction(){
+        return transaction;
+    }
+    
+    public void resetTransaction(){
+        transaction.reset();
+    }
+    
     public ArrayList<MenuItem> getMenuItemList(){
         return arrMenuItem;
     }
     
-    public void createOrderList(ArrayList<MenuItem> arrMenuItem){
+    public void saveTransaction(){
         OrderList orderList = new OrderList(arrMenuItem);
-            
         transaction.setOrderList(orderList);
+        transaction.setCash(cash);
+        transactionService.saveTransaction(transaction);
+        
     }
     
 }
