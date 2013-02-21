@@ -4,10 +4,14 @@
  */
 package OMS.service;
 
+import OMS.domain.Transaction;
+
 /**
  *
  * @author Heinrich
  */
 public class TransactionService {
-    
+    public void saveTransaction(Transaction transaction){
+        
+    }
 }

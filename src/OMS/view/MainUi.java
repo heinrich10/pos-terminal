@@ -5,10 +5,14 @@
 package OMS.view;
 
 import OMS.controller.TransactionController;
-import OMS.domain.Booster;
-import OMS.domain.Cash;
 import OMS.domain.MenuItem;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,13 +22,7 @@ import javax.swing.table.DefaultTableModel;
 public class MainUi extends javax.swing.JFrame {
 
     private MenuUi orderUi;
-   
     private CashUi cashUi;
-    
-    private MenuItem recipe;
-   
-    private Cash cash;
-    
     private TransactionController transactionController;
     
     /**
@@ -33,51 +31,59 @@ public class MainUi extends javax.swing.JFrame {
     
     public MainUi(){
         transactionController = new TransactionController();
+        initComponents();
         orderUi = new MenuUi(this, transactionController);
         cashUi = new CashUi(this, transactionController);
-        initComponents();
-        
         jTabbedPane.addTab("Order", orderUi);
         jTabbedPane.addTab("Cash", cashUi);
+        initTableProperties();
     }
     
-    public void moveToOrder(){
-        jTabbedPane.setSelectedIndex(0);
+     public void refreshTable() {
+        ArrayList<MenuItem> arrMenuItem;
+        arrMenuItem = transactionController.getMenuItemList();
+        String[] col = {"Item", "Price"};
+        Object[][] cell = new String[arrMenuItem.size()][col.length];
+        for(int i = 0; i < arrMenuItem.size(); i++){
+            cell[i][0] = arrMenuItem.get(i).getName();
+            cell[i][1] = String.valueOf(arrMenuItem.get(i).getPrice());
+         }
+        jTable1.setModel(new DefaultTableModel(cell, col));
+        computeTotal(arrMenuItem);
     }
     
-    public void moveToCash(){
-        jTabbedPane.setSelectedIndex(1);
-    }
-    
-    public void setRecipe(MenuItem recipe){
-        this.recipe = recipe;
-    }
-    
-    public void setBooster(Booster booster){
-        //this.booster = booster;
-    }
-
-    public void setCash(Cash cash){
-        this.cash = cash;
-    }
-    
-    public void addOrder(MenuItem menuItem){
-         refreshTable();
-    }
-    
-    private void computeTotal(ArrayList<MenuItem> arrMenuItem){
+     private void computeTotal(ArrayList<MenuItem> arrMenuItem){
         double sum = 0.0;
         for(int i = 0; i < arrMenuItem.size(); i++){
             sum += arrMenuItem.get(i).getPrice();
         }
-        
         jTextFieldSum.setText(String.valueOf(sum));
     }
     
-    public void voidOrder(int index){
-        transactionController.voidMenuItem(index);
-        refreshTable();
+    private void initTableProperties(){
+        jTable1.addMouseListener(new MouseAdapter() {
+            
+            @Override
+            public void mouseReleased(MouseEvent e){
+                int point = jTable1.rowAtPoint(e.getPoint());
+                jTable1.setRowSelectionInterval(point, point);
+                
+                JPopupMenu popup = new JPopupMenu();
+                JMenuItem menuItem = new JMenuItem("void");
+                menuItem.addActionListener(new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        transactionController.voidMenuItem(jTable1.getSelectedRow());
+                        refreshTable();
+                    }
+                });
+                popup.add(menuItem);
+                popup.show(e.getComponent(), e.getX(), e.getY());
+            }
+        });
     }
+    
     
     
     /**
@@ -91,21 +97,17 @@ public class MainUi extends javax.swing.JFrame {
 
         jButtonCancel = new javax.swing.JButton();
         jTabbedPane = new javax.swing.JTabbedPane();
-        jButtonQueue = new javax.swing.JButton();
         jRadioButtonIn = new javax.swing.JRadioButton();
         jRadioButtonOut = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jTextFieldSum = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonComplete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButtonCancel.setText("Cancel Transaction");
-
-        jButtonQueue.setText("Load Queue");
 
         jRadioButtonIn.setSelected(true);
         jRadioButtonIn.setText("Dine-In");
@@ -127,14 +129,12 @@ public class MainUi extends javax.swing.JFrame {
 
         jLabel1.setText("Total");
 
-        jButton1.setText("Void");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonComplete.setText("Complete Transaction");
+        jButtonComplete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonCompleteActionPerformed(evt);
             }
         });
-
-        jButton2.setText("Complete Transaction");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -150,68 +150,58 @@ public class MainUi extends javax.swing.JFrame {
                         .addGap(0, 336, Short.MAX_VALUE))
                     .addComponent(jTabbedPane, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldSum, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButtonComplete, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jButtonQueue, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButtonCancel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jButtonCancel, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButtonIn)
-                    .addComponent(jButtonCancel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButtonOut)
-                    .addComponent(jButtonQueue))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jRadioButtonIn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                        .addComponent(jRadioButtonOut))
+                    .addComponent(jButtonCancel))
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldSum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
-                            .addComponent(jButton1))
+                            .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(jTabbedPane)))
+                        .addComponent(jButtonComplete))
+                    .addComponent(jTabbedPane))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonCompleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCompleteActionPerformed
         // TODO add your handling code here:
-        voidOrder(jTable1.getSelectedRow());
-    }//GEN-LAST:event_jButton1ActionPerformed
+        transactionController.saveTransaction();
+    }//GEN-LAST:event_jButtonCompleteActionPerformed
 
     /**
      * @param args the command line arguments
      */
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonCancel;
-    private javax.swing.JButton jButtonQueue;
+    private javax.swing.JButton jButtonComplete;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JRadioButton jRadioButtonIn;
     private javax.swing.JRadioButton jRadioButtonOut;
@@ -221,18 +211,5 @@ public class MainUi extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldSum;
     // End of variables declaration//GEN-END:variables
 
-    private void refreshTable() {
-        ArrayList<MenuItem> arrMenuItem;
-        arrMenuItem = transactionController.getMenuItemList();
-        String[] col = {"Item", "Price"};
-        Object[][] cell = new String[arrMenuItem.size()][col.length];
-        for(int i = 0; i < arrMenuItem.size(); i++){
-            cell[i][0] = arrMenuItem.get(i).getName();
-            cell[i][1] = String.valueOf(arrMenuItem.get(i).getPrice());
-         }
-       
-        
-        jTable1.setModel(new DefaultTableModel(cell, col));
-        computeTotal(arrMenuItem);
-    }
+   
 }

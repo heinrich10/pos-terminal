@@ -43,11 +43,6 @@
               </Group>
               <EmptySpace pref="153" max="32767" attributes="0"/>
           </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="jButtonNext" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -71,9 +66,7 @@
                   <Component id="menuButton6" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="menuButton9" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="150" max="32767" attributes="0"/>
-              <Component id="jButtonNext" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace pref="184" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -83,9 +76,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Menu 1"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuButton1ActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="menuButton2">
       <Properties>
@@ -125,11 +115,6 @@
     <Component class="javax.swing.JButton" name="menuButton9">
       <Properties>
         <Property name="text" type="java.lang.String" value="Menu 9"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButtonNext">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Next"/>
       </Properties>
     </Component>
   </SubComponents>
