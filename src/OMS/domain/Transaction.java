@@ -10,28 +10,19 @@ package OMS.domain;
  */
 public class Transaction {
     
-    private MenuItem menuItem;
-    private BoosterList boosterList;
+    private OrderList orderList;
     private Cash cash;
     
-    public void setMenuItem(MenuItem menuItem){
-        this.menuItem = menuItem;
-    }
-    
-    public void setBoosterList(BoosterList boosterList){
-        this.boosterList = boosterList;
+    public void setOrderList(OrderList orderList){
+        this.orderList = orderList;
     }
     
     public void setCash(Cash cash){
         this.cash = cash;
     }
     
-    public MenuItem getMenuItem(){
-        return menuItem;
-    }
-    
-    public BoosterList getBoosterList(){
-        return boosterList;
+    public OrderList getOrderList(){
+        return orderList;
     }
     
     public Cash getCash(){
@@ -39,8 +30,7 @@ public class Transaction {
     }
     
     public void reset(){
-        MenuItem menuItem = null;
-        BoosterList boosterList = null;
-        Cash cash = null;
+        orderList = null;
+        cash = null;
     }
 }

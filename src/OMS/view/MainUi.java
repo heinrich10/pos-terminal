@@ -8,6 +8,8 @@ import OMS.controller.TransactionController;
 import OMS.domain.Booster;
 import OMS.domain.Cash;
 import OMS.domain.MenuItem;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,11 +18,11 @@ import OMS.domain.MenuItem;
 public class MainUi extends javax.swing.JFrame {
 
     private MenuUi orderUi;
-    private BoosterUi boosterUi;
+   
     private CashUi cashUi;
     
     private MenuItem recipe;
-    private Booster booster;
+   
     private Cash cash;
     
     private TransactionController transactionController;
@@ -32,33 +34,19 @@ public class MainUi extends javax.swing.JFrame {
     public MainUi(){
         transactionController = new TransactionController();
         orderUi = new MenuUi(this, transactionController);
-        boosterUi = new BoosterUi(this, transactionController);
         cashUi = new CashUi(this, transactionController);
         initComponents();
         
-        jTabbedPane.addTab("Step 1", orderUi);
-        jTabbedPane.addTab("Step 2", boosterUi);
-        jTabbedPane.addTab("Step 3", cashUi);
-    }
-    
-    public void initializeTab(MenuUi orderUi, BoosterUi boosterUi, CashUi cashUi){
-        this.orderUi = orderUi;
-        this.boosterUi = boosterUi;
-        this.cashUi = cashUi;
-        
-        
+        jTabbedPane.addTab("Order", orderUi);
+        jTabbedPane.addTab("Cash", cashUi);
     }
     
     public void moveToOrder(){
         jTabbedPane.setSelectedIndex(0);
     }
     
-    public void moveToBooster(){
-        jTabbedPane.setSelectedIndex(1);
-    }
-    
     public void moveToCash(){
-        jTabbedPane.setSelectedIndex(2);
+        jTabbedPane.setSelectedIndex(1);
     }
     
     public void setRecipe(MenuItem recipe){
@@ -66,11 +54,29 @@ public class MainUi extends javax.swing.JFrame {
     }
     
     public void setBooster(Booster booster){
-        this.booster = booster;
+        //this.booster = booster;
     }
 
     public void setCash(Cash cash){
         this.cash = cash;
+    }
+    
+    public void addOrder(MenuItem menuItem){
+         refreshTable();
+    }
+    
+    private void computeTotal(ArrayList<MenuItem> arrMenuItem){
+        double sum = 0.0;
+        for(int i = 0; i < arrMenuItem.size(); i++){
+            sum += arrMenuItem.get(i).getPrice();
+        }
+        
+        jTextFieldSum.setText(String.valueOf(sum));
+    }
+    
+    public void voidOrder(int index){
+        transactionController.voidMenuItem(index);
+        refreshTable();
     }
     
     
@@ -88,6 +94,12 @@ public class MainUi extends javax.swing.JFrame {
         jButtonQueue = new javax.swing.JButton();
         jRadioButtonIn = new javax.swing.JRadioButton();
         jRadioButtonOut = new javax.swing.JRadioButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jTextFieldSum = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,9 +107,34 @@ public class MainUi extends javax.swing.JFrame {
 
         jButtonQueue.setText("Load Queue");
 
+        jRadioButtonIn.setSelected(true);
         jRadioButtonIn.setText("Dine-In");
 
         jRadioButtonOut.setText("Take Out");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jTextFieldSum.setEditable(false);
+        jTextFieldSum.setText(" ");
+
+        jLabel1.setText("Total");
+
+        jButton1.setText("Void");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Complete Transaction");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -106,45 +143,96 @@ public class MainUi extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jRadioButtonIn)
                             .addComponent(jRadioButtonOut))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 194, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButtonCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonQueue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap())
+                        .addGap(0, 336, Short.MAX_VALUE))
+                    .addComponent(jTabbedPane, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldSum, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jButtonQueue, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonCancel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonCancel)
-                    .addComponent(jRadioButtonIn))
+                    .addComponent(jRadioButtonIn)
+                    .addComponent(jButtonCancel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButtonOut)
                     .addComponent(jButtonQueue))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
-                .addGap(8, 8, 8))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldSum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)
+                            .addComponent(jButton1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(jTabbedPane)))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        voidOrder(jTable1.getSelectedRow());
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonCancel;
     private javax.swing.JButton jButtonQueue;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JRadioButton jRadioButtonIn;
     private javax.swing.JRadioButton jRadioButtonOut;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextFieldSum;
     // End of variables declaration//GEN-END:variables
+
+    private void refreshTable() {
+        ArrayList<MenuItem> arrMenuItem;
+        arrMenuItem = transactionController.getMenuItemList();
+        String[] col = {"Item", "Price"};
+        Object[][] cell = new String[arrMenuItem.size()][col.length];
+        for(int i = 0; i < arrMenuItem.size(); i++){
+            cell[i][0] = arrMenuItem.get(i).getName();
+            cell[i][1] = String.valueOf(arrMenuItem.get(i).getPrice());
+         }
+       
+        
+        jTable1.setModel(new DefaultTableModel(cell, col));
+        computeTotal(arrMenuItem);
+    }
 }

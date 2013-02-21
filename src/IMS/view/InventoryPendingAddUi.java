@@ -116,7 +116,7 @@ public class InventoryPendingAddUi extends javax.swing.JFrame {
 
     private void jButtonPlaceOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlaceOrderActionPerformed
         // TODO add your handling code here:
-        Inventory inventory = new Inventory(arrIngredientCode.get(jComboBox.getSelectedIndex()).getCode(), Integer.valueOf(jTextField2.getText()), Double.valueOf(jTextField3.getText()), new java.sql.Date(new java.util.Date().getTime()));
+        Inventory inventory = new Inventory(0, "",arrIngredientCode.get(jComboBox.getSelectedIndex()).getCode(), Integer.valueOf(jTextField2.getText()), Double.valueOf(jTextField3.getText()), new java.sql.Date(new java.util.Date().getTime()));
         ips.saveInventoryPending(inventory);
         ipu.initTable();
         this.setVisible(false);

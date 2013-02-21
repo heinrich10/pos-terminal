@@ -30,13 +30,13 @@ public class InventoryController {
             Connection con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
             
             PreparedStatement pst = con.prepareStatement(
-                    "SELECT  code_ingredient, quantity, price, stock_date FROM IM_INGREDIENT_INVENTORY");
+                    "SELECT III.item_number, IIC.brand, IIC.name, III.code_ingredient, III.quantity, III.price, III.stock_date FROM MO.IM_INGREDIENT_INVENTORY III JOIN MO.IM_INGREDIENT_CODE IIC ON III.code_ingredient = IIC.code");
             ResultSet rs = pst.executeQuery();
             
             arrInventory = new ArrayList();
             
             while(rs.next()){
-                arrInventory.add(new Inventory(rs.getString("code_ingredient"), rs.getInt("quantity"), rs.getDouble("price"), rs.getDate("stock_date")));
+                arrInventory.add(new Inventory(rs.getInt("item_number"),rs.getString("brand") + " " + rs.getString("name"), rs.getString("code_ingredient"), rs.getInt("quantity"), rs.getDouble("price"), rs.getDate("stock_date")));
             }
            
         } catch (SQLException ex) {

@@ -19,6 +19,7 @@ import java.util.logging.Logger;
  * @author Heinrich
  */
 public class InventoryPendingService {
+    
     public void saveInventoryPending(Inventory inventory){
         try {
             DBEntity db = new DBEntity();
@@ -42,14 +43,14 @@ public class InventoryPendingService {
             Logger.getLogger(InventoryController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-        public void deleteInventoryPending(String code){
+        public void deleteInventoryPending(int itemNumber){
         try {
             DBEntity db = new DBEntity();
             Connection con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
             
-            PreparedStatement pst = con.prepareStatement("delete from IM_INGREDIENT_PENDING where code_ingredient = ?");
+            PreparedStatement pst = con.prepareStatement("delete from IM_INGREDIENT_PENDING where item_number = ?");
            
-            pst.setString(1, code);
+            pst.setInt(1, itemNumber);
            
             
             pst.executeUpdate();
@@ -58,7 +59,29 @@ public class InventoryPendingService {
         } catch (SQLException ex) {
             Logger.getLogger(InventoryController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
         
-        
+    public void saveToInventory(Inventory inventory){
+         try {
+            DBEntity db = new DBEntity();
+            Connection con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
+            
+            PreparedStatement pst = con.prepareStatement("insert into IM_INGREDIENT_INVENTORY(create_date, update_date, update_user, update_program, code_ingredient, quantity, price, stock_date) values (?, ?, ?, ?, ?, ?, ?, ?)");
+                   
+            pst.setDate(1, new java.sql.Date(new java.util.Date().getTime()));
+            pst.setDate(2, new java.sql.Date(new java.util.Date().getTime()));
+            pst.setString(3, "pgm");
+            pst.setString(4, "IPService");
+            pst.setString(5, inventory.getCodeIngredient());
+            pst.setInt(6, inventory.getQuantity());
+            pst.setDouble(7, inventory.getPrice());
+            pst.setDate(8, inventory.getStockDate());
+            
+            pst.executeUpdate();
+            
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(InventoryController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

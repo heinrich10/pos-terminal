@@ -4,7 +4,6 @@
  */
 package IMS.view;
 
-import IMS.controller.InventoryController;
 import IMS.controller.InventoryPendingController;
 import IMS.domain.Inventory;
 import IMS.service.InventoryPendingService;
@@ -26,7 +25,7 @@ public class InventoryPendingUi extends javax.swing.JFrame {
     InventoryPendingUi(InventoryUi iu) {
         initComponents();
         initTable();
-        
+        this.iu = iu;
         ips = new InventoryPendingService();
         ipau = new InventoryPendingAddUi(this, ips);
     }
@@ -44,7 +43,7 @@ public class InventoryPendingUi extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jButtonNew = new javax.swing.JButton();
         jButtonDelete = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jButtonDelivered = new javax.swing.JButton();
 
         jScrollPane1.setViewportView(jTable1);
 
@@ -62,10 +61,10 @@ public class InventoryPendingUi extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Delivered");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonDelivered.setText("Delivered");
+        jButtonDelivered.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonDeliveredActionPerformed(evt);
             }
         });
 
@@ -80,7 +79,7 @@ public class InventoryPendingUi extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonDelivered, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -93,7 +92,7 @@ public class InventoryPendingUi extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonDelete)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addComponent(jButtonDelivered))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -108,19 +107,25 @@ public class InventoryPendingUi extends javax.swing.JFrame {
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
         // TODO add your handling code here:
-        ips.deleteInventoryPending(arrInventory.get(jTable1.getSelectedRow()).getCodeIngredient());
+        ips.deleteInventoryPending(arrInventory.get(jTable1.getSelectedRow()).getItemNumber());
         initTable();
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonDeliveredActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeliveredActionPerformed
         // TODO add your handling code here:
+        Inventory inventory = arrInventory.get(jTable1.getSelectedRow());
+        ips.deleteInventoryPending(inventory.getItemNumber());
+        ips.saveToInventory(inventory);
+        initTable();
+        iu.initTable();
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+        
+    }//GEN-LAST:event_jButtonDeliveredActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonDelete;
+    private javax.swing.JButton jButtonDelivered;
     private javax.swing.JButton jButtonNew;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
@@ -129,10 +134,10 @@ public class InventoryPendingUi extends javax.swing.JFrame {
         
         InventoryPendingController ic = new InventoryPendingController();
         arrInventory = ic.loadInventoryPending();
-        String[] col = {"Code ingredient", "Quantity", "Price", "Order date"};
+        String[] col = {"Name", "Quantity", "Price", "Order date"};
         Object[][] cell = new String[arrInventory.size()][col.length];
         for(int i = 0; i < arrInventory.size(); i++){
-            cell[i][0] = arrInventory.get(i).getCodeIngredient();
+            cell[i][0] = arrInventory.get(i).getName();
             cell[i][1] = String.valueOf(arrInventory.get(i).getQuantity());
             cell[i][2] = String.valueOf(arrInventory.get(i).getPrice());
             cell[i][3] = arrInventory.get(i).getStockDate().toString();
