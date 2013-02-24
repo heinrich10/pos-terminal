@@ -30,7 +30,7 @@ public class MenuController {
             Connection con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
      
             PreparedStatement pst = con.prepareStatement(
-                    "SELECT  code, type, name, description, price FROM OMS_RM_RECIPE");
+                    "SELECT  code, type, name, description, price FROM OMS_MENU_ITEM");
           
             ResultSet rs = pst.executeQuery();
             
@@ -42,7 +42,6 @@ public class MenuController {
                 rs.getString("description"), rs.getInt("price")));
             }
             
-            System.out.println(arrRecipe.size());
             
         } catch (SQLException ex) {
             Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
@@ -51,7 +50,4 @@ public class MenuController {
         return arrRecipe;
     }
     
-    public void createOrderList(){
-        
-    }
 }

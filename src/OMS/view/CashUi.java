@@ -4,7 +4,6 @@
  */
 package OMS.view;
 
-import OMS.controller.CashController;
 import OMS.controller.TransactionController;
 import java.awt.event.KeyEvent;
 
@@ -13,7 +12,6 @@ import java.awt.event.KeyEvent;
  * @author Heinrich
  */
 public class CashUi extends javax.swing.JPanel {
-    private CashController cashController;
     private MainUi mainUi;
     private TransactionController transactionController;
     /**
@@ -24,8 +22,7 @@ public class CashUi extends javax.swing.JPanel {
         this.mainUi = mainUi;
         this.transactionController = transactionController;
         
-        cashController = new CashController();
-    }
+   }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -256,10 +253,14 @@ public class CashUi extends javax.swing.JPanel {
 
     private void calculate() {
         double recievedAmt = Double.valueOf(jTextFieldRecievedAmt.getText());
-        cashController.setRecievedAmt(recievedAmt);
-        //cashController.setPrice(transactionController.getMenuItem().getPrice());
-        jTextFieldChange.setText(String.valueOf(cashController.calculateChange()));
+        jTextFieldChange.setText(String.valueOf(transactionController.calculateChange(recievedAmt, mainUi.getTotalAmt())));
+       
         
+    }
+    
+    public void reset(){
+        jTextFieldChange.setText("");
+        jTextFieldRecievedAmt.setText("");
     }
 
     
