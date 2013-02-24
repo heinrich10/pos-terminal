@@ -12,19 +12,31 @@ import java.util.ArrayList;
  */
 public class OrderList {
     
-    private MenuItem[] menuItem;
+    private ArrayList<MenuItem> arrMenuItem;
     
-    public OrderList(ArrayList<MenuItem> arrMenuItem){
+    public OrderList(){
         
-        menuItem = new MenuItem[arrMenuItem.size()];
-        
-        for(int i = 0; i < menuItem.length; i++){
-            menuItem[i] = arrMenuItem.get(i);
-        }
+        arrMenuItem = new ArrayList();
     }
     
-    public MenuItem[] getOrderList(){
-        return menuItem;
+    public void addMenuItem(MenuItem menuItem){
+        arrMenuItem.add(menuItem);
+    }
+    
+    public void removeMenuItem(int index){
+        arrMenuItem.remove(index);
+    }
+    
+    public MenuItem getMenuItem(int index){
+        return arrMenuItem.get(index);
+    }
+    
+    public int size(){
+        return arrMenuItem.size();
+    }
+    
+    public void reset(){
+        arrMenuItem.clear();
     }
     
 }

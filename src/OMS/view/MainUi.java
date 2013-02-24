@@ -5,12 +5,11 @@
 package OMS.view;
 
 import OMS.controller.TransactionController;
-import OMS.domain.MenuItem;
+import OMS.domain.OrderList;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.table.DefaultTableModel;
@@ -40,22 +39,21 @@ public class MainUi extends javax.swing.JFrame {
     }
     
      public void refreshTable() {
-        ArrayList<MenuItem> arrMenuItem;
-        arrMenuItem = transactionController.getMenuItemList();
+        OrderList orderList = transactionController.getOrderList();
         String[] col = {"Item", "Price"};
-        Object[][] cell = new String[arrMenuItem.size()][col.length];
-        for(int i = 0; i < arrMenuItem.size(); i++){
-            cell[i][0] = arrMenuItem.get(i).getName();
-            cell[i][1] = String.valueOf(arrMenuItem.get(i).getPrice());
+        Object[][] cell = new String[orderList.size()][col.length];
+        for(int i = 0; i < orderList.size(); i++){
+            cell[i][0] = orderList.getMenuItem(i).getName();
+            cell[i][1] = String.valueOf(orderList.getMenuItem(i).getPrice());
          }
         jTable1.setModel(new DefaultTableModel(cell, col));
-        computeTotal(arrMenuItem);
+        computeTotal(orderList);
     }
     
-     private void computeTotal(ArrayList<MenuItem> arrMenuItem){
+     private void computeTotal(OrderList orderList){
         double sum = 0.0;
-        for(int i = 0; i < arrMenuItem.size(); i++){
-            sum += arrMenuItem.get(i).getPrice();
+        for(int i = 0; i < orderList.size(); i++){
+            sum += orderList.getMenuItem(i).getPrice();
         }
         jTextFieldSum.setText(String.valueOf(sum));
     }
@@ -108,11 +106,26 @@ public class MainUi extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButtonCancel.setText("Cancel Transaction");
+        jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelActionPerformed(evt);
+            }
+        });
 
         jRadioButtonIn.setSelected(true);
         jRadioButtonIn.setText("Dine-In");
+        jRadioButtonIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonInActionPerformed(evt);
+            }
+        });
 
         jRadioButtonOut.setText("Take Out");
+        jRadioButtonOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonOutActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -126,6 +139,11 @@ public class MainUi extends javax.swing.JFrame {
 
         jTextFieldSum.setEditable(false);
         jTextFieldSum.setText(" ");
+        jTextFieldSum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldSumActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Total");
 
@@ -195,6 +213,34 @@ public class MainUi extends javax.swing.JFrame {
         transactionController.saveTransaction();
     }//GEN-LAST:event_jButtonCompleteActionPerformed
 
+    private void jTextFieldSumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldSumActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldSumActionPerformed
+
+    private void jRadioButtonInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonInActionPerformed
+        // TODO add your handling code here:
+        jRadioButtonIn.setSelected(true);
+        jRadioButtonOut.setSelected(false);
+        transactionController.setDineIn(true);
+    }//GEN-LAST:event_jRadioButtonInActionPerformed
+
+    private void jRadioButtonOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonOutActionPerformed
+        // TODO add your handling code here:
+        jRadioButtonIn.setSelected(false);
+        jRadioButtonOut.setSelected(true);
+        transactionController.setDineIn(false);
+    }//GEN-LAST:event_jRadioButtonOutActionPerformed
+
+    private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
+        // TODO add your handling code here:
+        cashUi.reset();
+        transactionController.resetTransaction();
+        refreshTable();
+    }//GEN-LAST:event_jButtonCancelActionPerformed
+    
+    public double getTotalAmt(){
+        return Double.valueOf(jTextFieldSum.getText());
+    }
     /**
      * @param args the command line arguments
      */
