@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  *
  * @author Heinrich
  */
-public class InventoryPendingService {
+public class InventoryService {
     
     public void saveInventoryPending(Inventory inventory){
         try {

@@ -5,9 +5,9 @@
 package IMS.view;
 
 import IMS.controller.IngredientCodeController;
+import IMS.controller.InventoryController;
 import IMS.domain.IngredientCode;
 import IMS.domain.Inventory;
-import IMS.service.InventoryPendingService;
 import java.util.ArrayList;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -18,20 +18,18 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class InventoryPendingAddUi extends javax.swing.JFrame {
      private ArrayList<IngredientCode> arrIngredientCode;
-     private InventoryPendingService ips;
-     private InventoryPendingUi ipu;
+     private InventoryPendingUi inventoryPendingUi;
+     private InventoryController inventoryController;
     /**
      * Creates new form InventoryPendingAddUi
      */
-    public InventoryPendingAddUi() {
-        
-    }
+    
 
-    InventoryPendingAddUi(InventoryPendingUi ipu, InventoryPendingService ips) {
+    InventoryPendingAddUi(InventoryPendingUi inventoryPendingUi, InventoryController inventoryController) {
         initComponents();
-        initCode();
-        this.ips = ips;
-        this.ipu = ipu;
+        loadIngredientCode();
+        this.inventoryController = inventoryController;
+        this.inventoryPendingUi = inventoryPendingUi;
     }
 
     /**
@@ -117,8 +115,8 @@ public class InventoryPendingAddUi extends javax.swing.JFrame {
     private void jButtonPlaceOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlaceOrderActionPerformed
         // TODO add your handling code here:
         Inventory inventory = new Inventory(0, "",arrIngredientCode.get(jComboBox.getSelectedIndex()).getCode(), Integer.valueOf(jTextField2.getText()), Double.valueOf(jTextField3.getText()), new java.sql.Date(new java.util.Date().getTime()));
-        ips.saveInventoryPending(inventory);
-        ipu.initTable();
+        inventoryController.saveInventoryPending(inventory);
+        inventoryPendingUi.initTable();
         this.setVisible(false);
     }//GEN-LAST:event_jButtonPlaceOrderActionPerformed
 
@@ -135,7 +133,7 @@ public class InventoryPendingAddUi extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
-    public void initCode(){
+    private void loadIngredientCode(){
         
         IngredientCodeController icc = new IngredientCodeController();
        

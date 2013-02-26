@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class IngredientCodeService {
     
-    public void saveIngredientCode(IngredientCode ic){
+    public void saveIngredientCode(IngredientCode ingredientCode){
         
         
         try {
@@ -33,10 +33,10 @@ public class IngredientCodeService {
             pst.setDate(2, new java.sql.Date(new java.util.Date().getTime()));
             pst.setString(3, "pgm");
             pst.setString(4, "ICService");
-            pst.setString(5, ic.getCode());
-            pst.setString(6, ic.getBrand());
-            pst.setString(7, ic.getName());
-            pst.setString(8, ic.getType());
+            pst.setString(5, ingredientCode.getCode());
+            pst.setString(6, ingredientCode.getBrand());
+            pst.setString(7, ingredientCode.getName());
+            pst.setString(8, ingredientCode.getTypeCode());
             
             pst.executeUpdate();
             

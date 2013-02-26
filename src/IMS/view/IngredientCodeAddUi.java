@@ -4,10 +4,9 @@
  */
 package IMS.view;
 
-import IMS.controller.IngredientCodeAddController;
+import IMS.controller.IngredientCodeController;
 import IMS.domain.IngredientCode;
 import IMS.domain.IngredientType;
-import IMS.service.IngredientCodeService;
 import java.util.ArrayList;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -17,15 +16,15 @@ import javax.swing.DefaultComboBoxModel;
  * @author Heinrich
  */
 public class IngredientCodeAddUi extends javax.swing.JFrame {
-    private ArrayList<IngredientType> arrInventoryType;
-    private IngredientCodeUi iiui;
-    private IngredientCodeService ics;
+    private ArrayList<IngredientType> arrIngredientType;
+    private IngredientCodeUi ingredientCodeUi;
+    private IngredientCodeController ingredientCodeController;
     /**
      * Creates new form InventoryIngredientAddUi
      */
-    IngredientCodeAddUi(IngredientCodeUi iiui, IngredientCodeService ics) {
-        this.iiui = iiui;
-        this.ics = ics;
+    IngredientCodeAddUi(IngredientCodeUi ingredientCodeUi, IngredientCodeController ingredientCodeController) {
+        this.ingredientCodeUi = ingredientCodeUi;
+        this.ingredientCodeController = ingredientCodeController;
         initComponents();
         initComboBox();
     }
@@ -131,9 +130,9 @@ public class IngredientCodeAddUi extends javax.swing.JFrame {
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
         // TODO add your handling code here:
-        IngredientCode ic = new IngredientCode(jTextFieldCode.getText(), jTextFieldBrand.getText(), jTextFieldName.getText(), arrInventoryType.get(jComboBoxType.getSelectedIndex()).getCode());
-        ics.saveIngredientCode(ic);
-        iiui.loadTable();
+        IngredientCode ic = new IngredientCode(jTextFieldCode.getText(), jTextFieldBrand.getText(), jTextFieldName.getText(), arrIngredientType.get(jComboBoxType.getSelectedIndex()).getCode(), arrIngredientType.get(jComboBoxType.getSelectedIndex()).getName());
+        ingredientCodeController.saveIngredientCode(ic);
+        ingredientCodeUi.loadTable();
         this.setVisible(false);
         
         
@@ -155,14 +154,14 @@ public class IngredientCodeAddUi extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void initComboBox() {
-        IngredientCodeAddController iiac = new IngredientCodeAddController();
-        arrInventoryType = iiac.loadInventoryType();
+        
+        arrIngredientType = ingredientCodeController.loadIngredientType();
         
         
-        String[] list = new String[arrInventoryType.size()];
+        String[] list = new String[arrIngredientType.size()];
         
-        for(int i = 0; i < arrInventoryType.size(); i++){
-            list[i] = arrInventoryType.get(i).getName();
+        for(int i = 0; i < arrIngredientType.size(); i++){
+            list[i] = arrIngredientType.get(i).getName();
         }
         
         ComboBoxModel model = new DefaultComboBoxModel(list);
