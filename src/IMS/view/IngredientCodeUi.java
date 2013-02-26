@@ -6,7 +6,6 @@ package IMS.view;
 
 import IMS.controller.IngredientCodeController;
 import IMS.domain.IngredientCode;
-import IMS.service.IngredientCodeService;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -16,19 +15,16 @@ import javax.swing.table.DefaultTableModel;
  * @author Heinrich
  */
 public class IngredientCodeUi extends javax.swing.JFrame {
-    private IngredientCodeAddUi iiau;
-    private IngredientCodeService ics;
-    private IngredientCodeController iic;
+    private IngredientCodeAddUi ingredientCodeAddUi;
+    private IngredientCodeController ingredientCodeController;
     /**
      * Creates new form IngredientCodeUi
      */
     public IngredientCodeUi() {
-        ics = new IngredientCodeService();
-        iic = new IngredientCodeController();
+        ingredientCodeController = new IngredientCodeController();
         initComponents();
         loadTable();
-        
-        iiau = new IngredientCodeAddUi(this, ics);
+        ingredientCodeAddUi = new IngredientCodeAddUi(this, ingredientCodeController);
     }
 
     /**
@@ -46,21 +42,8 @@ public class IngredientCodeUi extends javax.swing.JFrame {
         jButtonAdd = new javax.swing.JButton();
         jButtonDelete = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         jLabel1.setText("Ingredient Maintenance");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
         jScrollPane1.setViewportView(jTable1);
 
         jButtonAdd.setText("Add");
@@ -113,7 +96,7 @@ public class IngredientCodeUi extends javax.swing.JFrame {
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
         // TODO add your handling code here:
-        iiau.setVisible(true);
+        ingredientCodeAddUi.setVisible(true);
     }//GEN-LAST:event_jButtonAddActionPerformed
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
@@ -121,7 +104,7 @@ public class IngredientCodeUi extends javax.swing.JFrame {
         if(JOptionPane.showConfirmDialog(
                 this, "Are you sure you want to delete?", "Confirm Delete", JOptionPane.YES_NO_OPTION)
                 == JOptionPane.YES_OPTION){
-            ics.deleteIngredientCode((String)jTable1.getValueAt(jTable1.getSelectedRow(), 0));
+            ingredientCodeController.deleteIngredientCode((String)jTable1.getValueAt(jTable1.getSelectedRow(), 0));
             loadTable();
         }
     }//GEN-LAST:event_jButtonDeleteActionPerformed
@@ -129,37 +112,7 @@ public class IngredientCodeUi extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IngredientCodeUi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IngredientCodeUi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IngredientCodeUi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IngredientCodeUi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new IngredientCodeUi().setVisible(true);
-            }
-        });
-    }
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAdd;
     private javax.swing.JButton jButtonDelete;
@@ -175,8 +128,10 @@ public class IngredientCodeUi extends javax.swing.JFrame {
         ArrayList<IngredientCode> arrIngredientCode;
         
         
-        arrIngredientCode = iic.loadIngredientCode();
-        String[][] cell = new String[arrIngredientCode.size()][arrIngredientCode.size()];
+        arrIngredientCode = ingredientCodeController.loadIngredientCode();
+        String[] col = {"Ingredient Code", "Brand", "Name", "Type"};
+        
+        String[][] cell = new String[arrIngredientCode.size()][col.length];
         for(int i = 0; i < arrIngredientCode.size(); i++){
             cell[i][0] = arrIngredientCode.get(i).getCode();
             cell[i][1] = arrIngredientCode.get(i).getBrand();
@@ -184,7 +139,7 @@ public class IngredientCodeUi extends javax.swing.JFrame {
             cell[i][3] = arrIngredientCode.get(i).getType();
         }
        
-        String[] col = {"Ingredient Code", "Quantity", "Price", "Stock date"};
+        
         jTable1.setModel(new DefaultTableModel(cell, col));
         
         

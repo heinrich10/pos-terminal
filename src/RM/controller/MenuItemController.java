@@ -2,10 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package OMS.controller;
+package RM.controller;
 
 import Core.domain.DBEntity;
+import OMS.controller.MenuController;
 import OMS.domain.MenuItem;
+import RM.domain.MenuItemType;
+import RM.service.MenuItemService;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -19,10 +22,22 @@ import java.util.logging.Logger;
  *
  * @author Heinrich
  */
-public class MenuController {
-  
-    public ArrayList loadRecipe(){
-        ArrayList<MenuItem> arrRecipe = null;
+public class MenuItemController {
+    
+    private MenuController menuController;
+    private MenuItemService menuItemService;
+    
+    public MenuItemController(){
+        menuController = new MenuController();
+        menuItemService = new MenuItemService();
+    }
+    
+    public ArrayList<MenuItem> loadMenuItem(){
+        return menuController.loadRecipe();
+    }
+    
+    public ArrayList<MenuItemType> loadMenuItemType(){
+        ArrayList<MenuItemType> arrMenuItemType = null;
         try {
           
             DBEntity db = new DBEntity();           
@@ -30,16 +45,15 @@ public class MenuController {
             Connection con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
      
             PreparedStatement pst = con.prepareStatement(
-                    "SELECT  OMI.code, OMT.name, OMI.name, OMI.description, OMI.price, OMI.type FROM OMS_MENU_ITEM OMI JOIN OMS_MI_TYPE OMT ON OMI.type = OMT.code");
+                    "SELECT  code, name FROM OMS_MI_TYPE");
           
             ResultSet rs = pst.executeQuery();
             
-            arrRecipe = new ArrayList();
+            arrMenuItemType = new ArrayList();
             
             while(rs.next()){
                 
-                arrRecipe.add(new MenuItem(rs.getString("code"), rs.getString("OMT.name"), rs.getString("OMI.name"),
-                rs.getString("description"), rs.getInt("price"), rs.getString("type")));
+                arrMenuItemType.add(new MenuItemType(rs.getString("code"), rs.getString("name")));
             }
             
             
@@ -47,7 +61,14 @@ public class MenuController {
             Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
            
         }
-        return arrRecipe;
+        return arrMenuItemType;
     }
-    
+        
+    public void modifyMenuItem(MenuItem menuItem){
+        
+        menuItemService.modifyMenuItem(menuItem);
+    }  
 }
+    
+    
+

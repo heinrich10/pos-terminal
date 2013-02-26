@@ -2,16 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package OMS.controller;
+package RM.service;
 
 import Core.domain.DBEntity;
+import OMS.controller.MenuController;
 import OMS.domain.MenuItem;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,10 +18,9 @@ import java.util.logging.Logger;
  *
  * @author Heinrich
  */
-public class MenuController {
-  
-    public ArrayList loadRecipe(){
-        ArrayList<MenuItem> arrRecipe = null;
+public class MenuItemService {
+    
+    public void modifyMenuItem(MenuItem menuItem){
         try {
           
             DBEntity db = new DBEntity();           
@@ -30,24 +28,22 @@ public class MenuController {
             Connection con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
      
             PreparedStatement pst = con.prepareStatement(
-                    "SELECT  OMI.code, OMT.name, OMI.name, OMI.description, OMI.price, OMI.type FROM OMS_MENU_ITEM OMI JOIN OMS_MI_TYPE OMT ON OMI.type = OMT.code");
-          
-            ResultSet rs = pst.executeQuery();
+                    "UPDATE OMS_MENU_ITEM SET update_date = ?, update_user = ?, update_program = ?, type = ?, name = ?, description = ?, price = ? where code = ? ");
             
-            arrRecipe = new ArrayList();
+            pst.setDate(1, new java.sql.Date(new java.util.Date().getTime()));
+            pst.setString(2, "pgm");
+            pst.setString(3, "MIService");
+            pst.setString(4, menuItem.getTypeCode());
+            pst.setString(5, menuItem.getName());
+            pst.setString(6, menuItem.getDescription());
+            pst.setDouble(7, menuItem.getPrice());
+            pst.setString(8, menuItem.getCode());
             
-            while(rs.next()){
-                
-                arrRecipe.add(new MenuItem(rs.getString("code"), rs.getString("OMT.name"), rs.getString("OMI.name"),
-                rs.getString("description"), rs.getInt("price"), rs.getString("type")));
-            }
-            
+            pst.executeUpdate();
             
         } catch (SQLException ex) {
             Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
            
         }
-        return arrRecipe;
     }
-    
 }

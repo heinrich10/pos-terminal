@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Heinrich
  */
 public class InventoryUi extends javax.swing.JFrame {
-    private InventoryPendingUi ipu;
+    private InventoryPendingUi inventoryPendingUi;
     
     
     /**
@@ -23,7 +23,7 @@ public class InventoryUi extends javax.swing.JFrame {
     public InventoryUi() {
         initComponents();
         initTable();
-        ipu = new InventoryPendingUi(this);
+        inventoryPendingUi = new InventoryPendingUi(this);
         
     }
 
@@ -90,7 +90,7 @@ public class InventoryUi extends javax.swing.JFrame {
 
     private void jButtonOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrderActionPerformed
         // TODO add your handling code here:
-        ipu.setVisible(true);
+        inventoryPendingUi.setVisible(true);
         
     }//GEN-LAST:event_jButtonOrderActionPerformed
 

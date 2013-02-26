@@ -4,9 +4,8 @@
  */
 package IMS.view;
 
-import IMS.controller.InventoryPendingController;
+import IMS.controller.InventoryController;
 import IMS.domain.Inventory;
-import IMS.service.InventoryPendingService;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -15,19 +14,19 @@ import javax.swing.table.DefaultTableModel;
  * @author Heinrich
  */
 public class InventoryPendingUi extends javax.swing.JFrame {
-    private InventoryPendingAddUi ipau;
-    private InventoryPendingService ips;
+    private InventoryPendingAddUi inventoryPendingAddUi;
     private ArrayList<Inventory> arrInventory;
-    private InventoryUi iu;
+    private InventoryUi inventoryUi;
+    private InventoryController inventoryController;
     /**
      * Creates new form InventoryPendingUi
      */
-    InventoryPendingUi(InventoryUi iu) {
+    InventoryPendingUi(InventoryUi inventoryUi) {
         initComponents();
+        this.inventoryUi = inventoryUi;
+        inventoryController = new InventoryController();
+        inventoryPendingAddUi = new InventoryPendingAddUi(this, inventoryController);
         initTable();
-        this.iu = iu;
-        ips = new InventoryPendingService();
-        ipau = new InventoryPendingAddUi(this, ips);
     }
 
     /**
@@ -102,22 +101,22 @@ public class InventoryPendingUi extends javax.swing.JFrame {
 
     private void jButtonNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewActionPerformed
         // TODO add your handling code here:
-        ipau.setVisible(true);
+        inventoryPendingAddUi.setVisible(true);
     }//GEN-LAST:event_jButtonNewActionPerformed
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
         // TODO add your handling code here:
-        ips.deleteInventoryPending(arrInventory.get(jTable1.getSelectedRow()).getItemNumber());
+        inventoryController.deleteInventoryPending(arrInventory.get(jTable1.getSelectedRow()).getItemNumber());
         initTable();
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     private void jButtonDeliveredActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeliveredActionPerformed
         // TODO add your handling code here:
         Inventory inventory = arrInventory.get(jTable1.getSelectedRow());
-        ips.deleteInventoryPending(inventory.getItemNumber());
-        ips.saveToInventory(inventory);
+        inventoryController.deleteInventoryPending(inventory.getItemNumber());
+        inventoryController.saveToInventory(inventory);
         initTable();
-        iu.initTable();
+        inventoryUi.initTable();
         
         
     }//GEN-LAST:event_jButtonDeliveredActionPerformed
@@ -130,10 +129,10 @@ public class InventoryPendingUi extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+    
     public void initTable(){
-        
-        InventoryPendingController ic = new InventoryPendingController();
-        arrInventory = ic.loadInventoryPending();
+       
+        arrInventory = inventoryController.loadInventoryPending();
         String[] col = {"Name", "Quantity", "Price", "Order date"};
         Object[][] cell = new String[arrInventory.size()][col.length];
         for(int i = 0; i < arrInventory.size(); i++){
@@ -142,7 +141,6 @@ public class InventoryPendingUi extends javax.swing.JFrame {
             cell[i][2] = String.valueOf(arrInventory.get(i).getPrice());
             cell[i][3] = arrInventory.get(i).getStockDate().toString();
         }
-       
         
         jTable1.setModel(new DefaultTableModel(cell, col));
     }
