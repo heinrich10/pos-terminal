@@ -4,8 +4,6 @@
  */
 package RM.view;
 
-import IMS.controller.InventoryController;
-import IMS.domain.Inventory;
 import OMS.domain.MenuItem;
 import RM.controller.MenuItemController;
 import java.util.ArrayList;
@@ -20,6 +18,7 @@ public class MenuItemUi extends javax.swing.JFrame {
     private MenuItemController menuItemController;
     private MenuItemEditUi menuItemEditUi;
     ArrayList<MenuItem> arrMenuItem;
+    private RecipeUi recipeUi;
     
     /**
      * Creates new form MenuItemUi
@@ -29,6 +28,7 @@ public class MenuItemUi extends javax.swing.JFrame {
         initComponents();
         refreshTable();
         menuItemEditUi = new MenuItemEditUi(this, menuItemController);
+        
     }
 
     /**
@@ -42,15 +42,20 @@ public class MenuItemUi extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        jButtonRecipe = new javax.swing.JButton();
         jButtonEdit = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jScrollPane1.setViewportView(jTable1);
 
-        jButton1.setText("View Recipe");
+        jButtonRecipe.setText("View Recipe");
+        jButtonRecipe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRecipeActionPerformed(evt);
+            }
+        });
 
         jButtonEdit.setText("Edit Menu Item");
         jButtonEdit.addActionListener(new java.awt.event.ActionListener() {
@@ -73,7 +78,7 @@ public class MenuItemUi extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButtonEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jButtonRecipe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jLabel1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -87,7 +92,7 @@ public class MenuItemUi extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonEdit)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1))
+                        .addComponent(jButtonRecipe))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
@@ -101,43 +106,21 @@ public class MenuItemUi extends javax.swing.JFrame {
         menuItemEditUi.setVisible(true);
     }//GEN-LAST:event_jButtonEditActionPerformed
 
+    private void jButtonRecipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRecipeActionPerformed
+        // TODO add your handling code here:
+        
+        recipeUi = new RecipeUi();
+        recipeUi.loadRecipe(arrMenuItem.get(jTable1.getSelectedRow()));
+        recipeUi.setVisible(true);
+    }//GEN-LAST:event_jButtonRecipeActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuItemUi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuItemUi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuItemUi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuItemUi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MenuItemUi().setVisible(true);
-            }
-        });
-    }
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonEdit;
+    private javax.swing.JButton jButtonRecipe;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
