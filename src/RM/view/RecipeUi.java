@@ -4,17 +4,44 @@
  */
 package RM.view;
 
+import IMS.domain.IngredientCode;
+import OMS.domain.MenuItem;
+import RM.controller.RecipeController;
+import RM.controller.UnitController;
+import RM.domain.Ingredient;
+import RM.domain.Recipe;
+import RM.domain.Unit;
+import java.util.ArrayList;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+
 /**
  *
  * @author Heinrich
  */
 public class RecipeUi extends javax.swing.JFrame {
-
+    private RecipeController recipeController;
+    private ArrayList<IngredientCode> arrIngredientCode;
+    private Recipe recipe;
+    private Object[][] cell;
+    private String[] col = {"Quantity", "Unit", "Ingredient"};
+    private ArrayList<Unit> arrUnit;
+    private MenuItem menuItem;
+    private ArrayList<String> arrString;
+    private Recipe recipeDelete;
     /**
      * Creates new form RecipeUi
      */
     public RecipeUi() {
+        arrString = new ArrayList();
+        recipeDelete = new Recipe();
         initComponents();
+        recipeController = new RecipeController();
+        arrIngredientCode = new ArrayList();
+        loadUnit();
+        loadIngredientsList();
     }
 
     /**
@@ -26,56 +53,232 @@ public class RecipeUi extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jButtonAdd = new javax.swing.JButton();
+        jButtonDel = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jListIngredients = new javax.swing.JList();
+        jLabel1 = new javax.swing.JLabel();
+        jButtonAccept = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTableRecipe = new javax.swing.JTable();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jButtonAdd.setText("<<");
+        jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddActionPerformed(evt);
+            }
+        });
+
+        jButtonDel.setText(">>");
+        jButtonDel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDelActionPerformed(evt);
+            }
+        });
+
+        jScrollPane2.setViewportView(jListIngredients);
+
+        jLabel1.setText("Recipe Manager");
+
+        jButtonAccept.setText("Accept");
+        jButtonAccept.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAcceptActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Recipe");
+
+        jLabel3.setText("Ingredients List");
+
+        jTableRecipe.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2"
+            }
+        ));
+        jScrollPane3.setViewportView(jTableRecipe);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonAccept)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(0, 218, Short.MAX_VALUE))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonDel)
+                            .addComponent(jButtonAdd))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(38, 38, 38))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButtonAdd)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonDel))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonAccept)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
+        // TODO add your handling code here:
+        
+        if(arrString.contains(arrIngredientCode.get(jListIngredients.getSelectedIndex()).getName())){
+            
+        }else{
+            arrString.add(arrIngredientCode.get(jListIngredients.getSelectedIndex()).getName());
+            recipe.addIngredient(new Ingredient(menuItem.getCode(), arrIngredientCode.get(jListIngredients.getSelectedIndex()).getCode(), arrIngredientCode.get(jListIngredients.getSelectedIndex()).getName(), 0, "", ""));
+        
+            DefaultTableModel model = (DefaultTableModel) jTableRecipe.getModel();
+            Object[] rowData = {"", "", recipe.getIngredient(recipe.size() - 1).getName()};
+            model.addRow(rowData);
+        
+            jTableRecipe.setModel(model);
+        }
+        
+           
+    }//GEN-LAST:event_jButtonAddActionPerformed
+
+    private void jButtonDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDelActionPerformed
+        // TODO add your handling code here:
+        arrString.remove(jTableRecipe.getSelectedRow());
+        recipeDelete.addIngredient(recipe.removeIngredient(jTableRecipe.getSelectedRow()));
+        DefaultTableModel model = (DefaultTableModel) jTableRecipe.getModel();
+        model.removeRow(jTableRecipe.getSelectedRow());
+        
+        jTableRecipe.setModel(model);
+        
+        
+    }//GEN-LAST:event_jButtonDelActionPerformed
+
+    private void jButtonAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAcceptActionPerformed
+        // TODO add your handling code here:
+        for(int i = 0; i < jTableRecipe.getRowCount(); i++){
+           Ingredient ingredient = recipe.getIngredient(i);
+           DefaultCellEditor ce = (DefaultCellEditor) jTableRecipe.getCellEditor(i, 1);
+           JComboBox cb = (JComboBox) ce.getComponent();
+           Ingredient temp = new Ingredient(
+                   menuItem.getCode(), 
+                   ingredient.getCodeIngredient(), 
+                   "", 
+                   Integer.valueOf(jTableRecipe.getValueAt(i, 0).toString()), 
+                   arrUnit.get(cb.getSelectedIndex()).getCodeUnit(),
+                   "");
+           recipe.replace(i,temp);
+        }
+        recipeController.deleteRecipe(recipeDelete);
+        recipeController.saveRecipe(recipe);
+        this.dispose();
+    }//GEN-LAST:event_jButtonAcceptActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RecipeUi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RecipeUi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RecipeUi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RecipeUi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RecipeUi().setVisible(true);
-            }
-        });
-    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonAccept;
+    private javax.swing.JButton jButtonAdd;
+    private javax.swing.JButton jButtonDel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JList jListIngredients;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTableRecipe;
     // End of variables declaration//GEN-END:variables
+
+    private void loadIngredientsList() {
+        arrIngredientCode = recipeController.loadIngredients();
+        
+        String[] listData = new String[arrIngredientCode.size()];
+        
+        for(int i = 0; i < arrIngredientCode.size(); i++){
+            listData[i] = arrIngredientCode.get(i).getBrand() + " " + arrIngredientCode.get(i).getName();
+        }
+        jListIngredients.setListData(listData);
+    }
+
+    public void loadRecipe(MenuItem menuItem) {
+        this.menuItem = menuItem; 
+        recipe = recipeController.loadRecipe(menuItem);
+        
+        if(recipe == null){
+            recipe = new Recipe();
+        }
+            
+        
+        
+        
+        cell = new String[recipe.size()][col.length];
+        for(int i = 0; i < recipe.size(); i++){
+            cell[i][0] = String.valueOf(recipe.getIngredient(i).getQuantity());
+            cell[i][1] = recipe.getIngredient(i).getUnitName();
+            cell[i][2] = recipe.getIngredient(i).getName();
+            arrString.add(recipe.getIngredient(i).getName());
+            
+         }
+        jTableRecipe.setModel(new DefaultTableModel(cell, col));
+        
+        TableColumn tableColumn = jTableRecipe.getColumnModel().getColumn(1);
+        
+        String[] unitName = new String[arrUnit.size()];
+        
+        for(int i = 0; i < unitName.length; i++){
+            unitName[i] = arrUnit.get(i).getName();
+        }
+        
+        JComboBox comboBox = new JComboBox(unitName);
+        
+        tableColumn.setCellEditor(new DefaultCellEditor(comboBox));
+        
+        
+    }
+
+    private void loadUnit() {
+        arrUnit = new ArrayList();
+        UnitController unitController = new UnitController();
+        arrUnit = unitController.loadUnit();
+    }
 }

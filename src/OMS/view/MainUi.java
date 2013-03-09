@@ -4,12 +4,15 @@
  */
 package OMS.view;
 
+import Core.view.SuperUi;
 import OMS.controller.TransactionController;
 import OMS.domain.OrderList;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.table.DefaultTableModel;
@@ -23,12 +26,13 @@ public class MainUi extends javax.swing.JFrame {
     private MenuUi orderUi;
     private CashUi cashUi;
     private TransactionController transactionController;
+    private SuperUi superUi;
     
     /**
      * Creates new form MainUi
      */
     
-    public MainUi(){
+    public MainUi(final SuperUi superUi){
         transactionController = new TransactionController();
         initComponents();
         orderUi = new MenuUi(this, transactionController);
@@ -36,6 +40,16 @@ public class MainUi extends javax.swing.JFrame {
         jTabbedPane.addTab("Order", orderUi);
         jTabbedPane.addTab("Cash", cashUi);
         initTableProperties();
+        this.superUi = superUi;
+        
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent evt){
+                superUi.setVisible(true);
+                
+            }
+        
+        });
     }
     
      public void refreshTable() {
@@ -103,7 +117,7 @@ public class MainUi extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButtonComplete = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jButtonCancel.setText("Cancel Transaction");
         jButtonCancel.addActionListener(new java.awt.event.ActionListener() {

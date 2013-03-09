@@ -4,8 +4,10 @@
  */
 package Core.view;
 
-import IMS.domain.IngredientCode;
 import IMS.view.IngredientCodeUi;
+import RM.view.MenuItemUi;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  *
@@ -13,12 +15,23 @@ import IMS.view.IngredientCodeUi;
  */
 public class MaintenanceUi extends javax.swing.JFrame {
     private IngredientCodeUi ingredientCodeUi;
+    private MenuItemUi menuItemUi;
+    private SuperUi superUi;
     /**
      * Creates new form MaintenanceUi
      */
-    public MaintenanceUi() {
+    public MaintenanceUi(final SuperUi superUi) {
         initComponents();
         ingredientCodeUi = new IngredientCodeUi();
+        this.superUi = superUi;
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent evt){
+                superUi.setVisible(true);
+                
+            }
+        
+        });
     }
 
     /**
@@ -35,7 +48,7 @@ public class MaintenanceUi extends javax.swing.JFrame {
         jButtonUnitMaintenance = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jButtonIngredientMaintenance.setText("Ingredient Maintenance");
         jButtonIngredientMaintenance.addActionListener(new java.awt.event.ActionListener() {
@@ -45,6 +58,11 @@ public class MaintenanceUi extends javax.swing.JFrame {
         });
 
         jButtonRecipeMaintenance.setText("Recipe Maintenance");
+        jButtonRecipeMaintenance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRecipeMaintenanceActionPerformed(evt);
+            }
+        });
 
         jButtonUnitMaintenance.setText("Unit Maintenance");
 
@@ -86,40 +104,17 @@ public class MaintenanceUi extends javax.swing.JFrame {
         ingredientCodeUi.setVisible(true);
     }//GEN-LAST:event_jButtonIngredientMaintenanceActionPerformed
 
+    private void jButtonRecipeMaintenanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRecipeMaintenanceActionPerformed
+        // TODO add your handling code here:
+        menuItemUi = new MenuItemUi();
+        menuItemUi.setVisible(true);
+        
+    }//GEN-LAST:event_jButtonRecipeMaintenanceActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MaintenanceUi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MaintenanceUi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MaintenanceUi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MaintenanceUi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MaintenanceUi().setVisible(true);
-            }
-        });
-    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonIngredientMaintenance;
     private javax.swing.JButton jButtonRecipeMaintenance;
