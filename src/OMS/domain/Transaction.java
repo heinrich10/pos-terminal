@@ -36,6 +36,10 @@ public class Transaction {
         return orderList;
     }
     
+    public boolean getDineIn(){
+        return indDineIn;
+    }
+    
     public void reset(){
         orderList.reset();
         recievedAmount = 0;

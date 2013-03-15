@@ -4,9 +4,9 @@
  */
 package IMS.service;
 
-import Core.domain.DBEntity;
 import IMS.controller.InventoryController;
 import IMS.domain.IngredientCode;
+import core.domain.DBEntity;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -22,12 +22,14 @@ public class IngredientCodeService {
     
     public void saveIngredientCode(IngredientCode ingredientCode){
         
+        Connection con = null;
+        PreparedStatement pst = null;
         
         try {
             DBEntity db = new DBEntity();
-            Connection con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
+            con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
             
-            PreparedStatement pst = con.prepareStatement("insert into IM_INGREDIENT_CODE(create_date, update_date, update_user, update_program, code, brand, name, type) values (?, ?, ?, ?, ?, ?, ?, ?)");
+            pst = con.prepareStatement("insert into IM_INGREDIENT_CODE(create_date, update_date, update_user, update_program, code, brand, name, type) values (?, ?, ?, ?, ?, ?, ?, ?)");
                    
             pst.setDate(1, new java.sql.Date(new java.util.Date().getTime()));
             pst.setDate(2, new java.sql.Date(new java.util.Date().getTime()));
@@ -43,17 +45,39 @@ public class IngredientCodeService {
            
         } catch (SQLException ex) {
             Logger.getLogger(InventoryController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            
+            try {
+                
+                if(pst != null){
+                    pst.close();
+                }
+                
+                if(con != null){
+                   con.close(); 
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(IngredientCodeService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
+        
+        
         
         
     }
     
     public void deleteIngredientCode(String code){
+        
+        Connection con = null;
+        PreparedStatement pst = null;
+        
         try {
             DBEntity db = new DBEntity();
-            Connection con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
+            con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
             
-            PreparedStatement pst = con.prepareStatement("delete from IM_INGREDIENT_CODE where code = ?");
+            pst = con.prepareStatement("delete from IM_INGREDIENT_CODE where code = ?");
            
             pst.setString(1, code);
            
@@ -63,6 +87,22 @@ public class IngredientCodeService {
            
         } catch (SQLException ex) {
             Logger.getLogger(InventoryController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            
+            try {
+                
+                if(pst != null){
+                    pst.close();
+                }
+                
+                if(con != null){
+                   con.close(); 
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(IngredientCodeService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
         
         

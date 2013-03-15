@@ -4,7 +4,7 @@
  */
 package OMS.controller;
 
-import Core.domain.DBEntity;
+import core.domain.DBEntity;
 import OMS.domain.MenuItem;
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -4,11 +4,11 @@
  */
 package RM.controller;
 
-import Core.domain.DBEntity;
 import OMS.controller.MenuController;
 import OMS.domain.MenuItem;
 import RM.domain.MenuItemType;
 import RM.service.MenuItemService;
+import core.domain.DBEntity;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -37,17 +37,23 @@ public class MenuItemController {
     }
     
     public ArrayList<MenuItemType> loadMenuItemType(){
+        
         ArrayList<MenuItemType> arrMenuItemType = null;
+        
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement pst = null;
+        
         try {
           
             DBEntity db = new DBEntity();           
                 
-            Connection con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
+            con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
      
-            PreparedStatement pst = con.prepareStatement(
+            pst = con.prepareStatement(
                     "SELECT  code, name FROM OMS_MI_TYPE");
           
-            ResultSet rs = pst.executeQuery();
+            rs = pst.executeQuery();
             
             arrMenuItemType = new ArrayList();
             
@@ -60,6 +66,25 @@ public class MenuItemController {
         } catch (SQLException ex) {
             Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
            
+        } finally{
+            
+            try {
+                if(rs != null){
+                    rs.close();
+                }
+                
+                if(pst != null){
+                    pst.close();
+                }
+                
+                if(con != null){
+                   con.close(); 
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuItemController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
         return arrMenuItemType;
     }

@@ -6,7 +6,15 @@ package IMS.view;
 
 import IMS.controller.InventoryController;
 import IMS.domain.Inventory;
+import RM.controller.UnitController;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -73,26 +81,27 @@ public class InventoryPendingUi extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButtonDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonDelivered, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonNew, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonDelete, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonDelivered, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButtonNew)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonDelete)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(200, 200, 200)
                         .addComponent(jButtonDelivered))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -112,11 +121,26 @@ public class InventoryPendingUi extends javax.swing.JFrame {
 
     private void jButtonDeliveredActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeliveredActionPerformed
         // TODO add your handling code here:
-        Inventory inventory = arrInventory.get(jTable1.getSelectedRow());
-        inventoryController.deleteInventoryPending(inventory.getItemNumber());
-        inventoryController.saveToInventory(inventory);
-        initTable();
-        inventoryUi.initTable();
+       
+        try {
+            String roastDate = JOptionPane.showInputDialog("Roast Date? Format: (YYYY-MM-DD)");
+            Inventory inventory = arrInventory.get(jTable1.getSelectedRow());
+            Date date = new SimpleDateFormat("yyyy-MM-d", Locale.ENGLISH).parse(roastDate);
+            inventory.setRoastDate(new java.sql.Date(date.getTime()));
+            inventoryController.addPendingHist(inventory);
+            inventoryController.deleteInventoryPending(inventory.getItemNumber());
+            UnitController unitController = new UnitController();
+            inventory = unitController.loadPostUnit(inventory);
+            inventoryController.moveToInventory(inventory);
+            initTable();
+            inventoryUi.initTable();
+            
+        } catch (ParseException ex) {
+            Logger.getLogger(InventoryPendingUi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
         
         
     }//GEN-LAST:event_jButtonDeliveredActionPerformed
@@ -133,13 +157,14 @@ public class InventoryPendingUi extends javax.swing.JFrame {
     public void initTable(){
        
         arrInventory = inventoryController.loadInventoryPending();
-        String[] col = {"Name", "Quantity", "Price", "Order date"};
+        String[] col = {"Name", "Quantity", "Unit", "Total Price", "Order date"};
         Object[][] cell = new String[arrInventory.size()][col.length];
         for(int i = 0; i < arrInventory.size(); i++){
             cell[i][0] = arrInventory.get(i).getName();
             cell[i][1] = String.valueOf(arrInventory.get(i).getQuantity());
-            cell[i][2] = String.valueOf(arrInventory.get(i).getPrice());
-            cell[i][3] = arrInventory.get(i).getStockDate().toString();
+            cell[i][2] = arrInventory.get(i).getUnit();
+            cell[i][3] = String.valueOf(arrInventory.get(i).getTotalPrice());
+            cell[i][4] = arrInventory.get(i).getDate().toString();
         }
         
         jTable1.setModel(new DefaultTableModel(cell, col));

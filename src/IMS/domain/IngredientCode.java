@@ -42,4 +42,6 @@ public class IngredientCode {
     public String getType(){
         return type;
     }
+    
+   
 }

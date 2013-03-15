@@ -4,10 +4,10 @@
  */
 package IMS.controller;
 
-import Core.domain.DBEntity;
 import IMS.domain.IngredientCode;
 import IMS.domain.IngredientType;
 import IMS.service.IngredientCodeService;
+import core.domain.DBEntity;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -32,13 +32,17 @@ public class IngredientCodeController {
     public ArrayList<IngredientCode> loadIngredientCode(){
         ArrayList<IngredientCode> arrInventoryCode = null;
         
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement pst = null;
+        
         try {
             DBEntity db = new DBEntity();
-            Connection con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
+            con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
             
-            PreparedStatement pst = con.prepareStatement(
+            pst = con.prepareStatement(
                     "SELECT  IIC.code, IIC.brand, IIC.name, IIC.type, IIT.name FROM IM_INGREDIENT_CODE IIC JOIN IM_INGREDIENT_TYPE IIT ON IIC.type = IIT.code");
-            ResultSet rs = pst.executeQuery();
+            rs = pst.executeQuery();
             
             arrInventoryCode = new ArrayList();
             
@@ -48,6 +52,25 @@ public class IngredientCodeController {
            
         } catch (SQLException ex) {
             Logger.getLogger(InventoryController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            
+            try {
+                if(rs != null){
+                    rs.close();
+                }
+                
+                if(pst != null){
+                    pst.close();
+                }
+                
+                if(con != null){
+                   con.close(); 
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(IngredientCodeController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
         
          return arrInventoryCode;
@@ -55,14 +78,17 @@ public class IngredientCodeController {
     
     public ArrayList<IngredientType> loadIngredientType(){
         ArrayList<IngredientType> arrIngredientType = null;
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement pst = null;
         
         try {
             DBEntity db = new DBEntity();
-            Connection con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
+            con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
             
-            PreparedStatement pst = con.prepareStatement(
+            pst = con.prepareStatement(
                     "SELECT  code, name FROM IM_INGREDIENT_TYPE");
-            ResultSet rs = pst.executeQuery();
+            rs = pst.executeQuery();
             
             arrIngredientType = new ArrayList();
             
@@ -72,6 +98,24 @@ public class IngredientCodeController {
            
         } catch (SQLException ex) {
             Logger.getLogger(InventoryController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            
+            try {
+                if(rs != null){
+                    rs.close();
+                }
+                
+                if(pst != null){
+                    pst.close();
+                }
+                
+                if(con != null){
+                   con.close(); 
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(IngredientCodeController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
          return arrIngredientType;

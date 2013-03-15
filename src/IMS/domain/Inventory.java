@@ -12,24 +12,30 @@ import java.sql.Date;
  */
 public class Inventory {
     
-    private int itemNumber;
+    private long itemNumber;
     private String name;
     private String codeIngredient;
     private int quantity;
-    private double price;
-    private Date stockDate;
+    private double unitPrice;
+    private String unit;
+    private String unitCode;
+    private double totalPrice;
+    private Date date;
+    private Date roastDate;
     
-    public Inventory(int itemNumber, String name, String codeIngredient, int quantity, double price, Date stockDate){
-        
+    public Inventory(long itemNumber, String name, String codeIngredient, int quantity, double unitPrice, String unit, String unitCode, double totalPrice, Date date){
         this.itemNumber = itemNumber;
         this.name = name;
         this.codeIngredient = codeIngredient;
         this.quantity = quantity;
-        this.price = price;
-        this.stockDate = stockDate;
+        this.unitPrice = unitPrice;
+        this.unit = unit;
+        this.unitCode = unitCode;
+        this.totalPrice = totalPrice;
+        this.date = date;
      }
     
-    public int getItemNumber(){
+    public long getItemNumber(){
         return itemNumber;
     }
     
@@ -45,12 +51,44 @@ public class Inventory {
         return quantity;
     }
     
-    public double getPrice(){
-        return price;
+    public double getUnitPrice(){
+        return unitPrice;
     }
     
-    public Date getStockDate(){
-        return stockDate;
+    public String getUnit(){
+        return unit;
+    }
+    
+    public String getUnitCode(){
+        return unitCode;
+    }
+    
+    public Double getTotalPrice(){
+        return totalPrice;
+    }
+    
+    public Date getDate(){
+        return date;
+    }
+    
+    public Date getRoastDate(){
+        return roastDate;
+    }
+    
+    public void setUnitCode(String unitCode){
+        this.unitCode = unitCode;
+    }
+    
+    public void setQuantity(int quantity){
+        this.quantity = quantity;
+    }
+    
+    public void setUnitPrice(double unitPrice){
+        this.unitPrice = unitPrice;
+    }
+    
+    public void setRoastDate(Date roastDate){
+        this.roastDate = roastDate;
     }
 
     

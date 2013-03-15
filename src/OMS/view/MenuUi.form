@@ -20,14 +20,14 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="MenuButton13" min="-2" pref="110" max="-2" attributes="0"/>
+                      <Component id="menuButton13" min="-2" pref="110" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="MenuButton14" max="32767" attributes="0"/>
+                      <Component id="menuButton14" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Component id="menuButton9" min="-2" pref="110" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="MenuButton10" max="32767" attributes="0"/>
+                      <Component id="menuButton10" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="menuButton1" min="-2" max="-2" attributes="0"/>
@@ -53,14 +53,14 @@
                       <Component id="menuButton8" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <Component id="MenuButton11" min="-2" pref="110" max="-2" attributes="0"/>
+                      <Component id="menuButton11" min="-2" pref="110" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="MenuButton12" max="32767" attributes="0"/>
+                      <Component id="menuButton12" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <Component id="MenuButton15" min="-2" pref="110" max="-2" attributes="0"/>
+                      <Component id="menuButton15" min="-2" pref="110" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="MenuButton16" max="32767" attributes="0"/>
+                      <Component id="menuButton16" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -86,17 +86,17 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="MenuButton11" pref="71" max="32767" attributes="0"/>
-                  <Component id="MenuButton10" max="32767" attributes="0"/>
+                  <Component id="menuButton11" pref="71" max="32767" attributes="0"/>
+                  <Component id="menuButton10" max="32767" attributes="0"/>
                   <Component id="menuButton9" max="32767" attributes="0"/>
-                  <Component id="MenuButton12" max="32767" attributes="0"/>
+                  <Component id="menuButton12" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="MenuButton15" pref="70" max="32767" attributes="0"/>
-                  <Component id="MenuButton14" max="32767" attributes="0"/>
-                  <Component id="MenuButton13" max="32767" attributes="0"/>
-                  <Component id="MenuButton16" max="32767" attributes="0"/>
+                  <Component id="menuButton15" pref="70" max="32767" attributes="0"/>
+                  <Component id="menuButton14" max="32767" attributes="0"/>
+                  <Component id="menuButton13" max="32767" attributes="0"/>
+                  <Component id="menuButton16" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -176,37 +176,37 @@
         <Property name="text" type="java.lang.String" value="Menu 9"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="MenuButton10">
+    <Component class="javax.swing.JButton" name="menuButton10">
       <Properties>
         <Property name="text" type="java.lang.String" value="Menu 10"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="MenuButton11">
+    <Component class="javax.swing.JButton" name="menuButton11">
       <Properties>
         <Property name="text" type="java.lang.String" value="Menu 11"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="MenuButton12">
+    <Component class="javax.swing.JButton" name="menuButton12">
       <Properties>
         <Property name="text" type="java.lang.String" value="Menu 12"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="MenuButton13">
+    <Component class="javax.swing.JButton" name="menuButton13">
       <Properties>
         <Property name="text" type="java.lang.String" value="Menu 13"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="MenuButton14">
+    <Component class="javax.swing.JButton" name="menuButton14">
       <Properties>
         <Property name="text" type="java.lang.String" value="Menu 14"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="MenuButton15">
+    <Component class="javax.swing.JButton" name="menuButton15">
       <Properties>
         <Property name="text" type="java.lang.String" value="Menu 15"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="MenuButton16">
+    <Component class="javax.swing.JButton" name="menuButton16">
       <Properties>
         <Property name="text" type="java.lang.String" value="Menu 16"/>
       </Properties>

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Core.view;
+package main;
 
 import IMS.view.IngredientCodeUi;
 import RM.view.MenuItemUi;
@@ -16,11 +16,11 @@ import java.awt.event.WindowEvent;
 public class MaintenanceUi extends javax.swing.JFrame {
     private IngredientCodeUi ingredientCodeUi;
     private MenuItemUi menuItemUi;
-    private SuperUi superUi;
+    private MagnusOpus superUi;
     /**
      * Creates new form MaintenanceUi
      */
-    public MaintenanceUi(final SuperUi superUi) {
+    public MaintenanceUi(final MagnusOpus superUi) {
         initComponents();
         ingredientCodeUi = new IngredientCodeUi();
         this.superUi = superUi;

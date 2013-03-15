@@ -4,7 +4,6 @@
  */
 package OMS.view;
 
-import Core.view.SuperUi;
 import OMS.controller.TransactionController;
 import OMS.domain.OrderList;
 import java.awt.event.ActionEvent;
@@ -14,8 +13,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.table.DefaultTableModel;
+import main.MagnusOpus;
 
 /**
  *
@@ -26,13 +27,13 @@ public class MainUi extends javax.swing.JFrame {
     private MenuUi orderUi;
     private CashUi cashUi;
     private TransactionController transactionController;
-    private SuperUi superUi;
+    private MagnusOpus superUi;
     
     /**
      * Creates new form MainUi
      */
     
-    public MainUi(final SuperUi superUi){
+    public MainUi(final MagnusOpus superUi){
         transactionController = new TransactionController();
         initComponents();
         orderUi = new MenuUi(this, transactionController);
@@ -41,7 +42,7 @@ public class MainUi extends javax.swing.JFrame {
         jTabbedPane.addTab("Cash", cashUi);
         initTableProperties();
         this.superUi = superUi;
-        
+        initOverride();
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent evt){
@@ -77,21 +78,47 @@ public class MainUi extends javax.swing.JFrame {
             
             @Override
             public void mouseReleased(MouseEvent e){
-                int point = jTable1.rowAtPoint(e.getPoint());
-                jTable1.setRowSelectionInterval(point, point);
+                if(e.getButton() == MouseEvent.BUTTON3){
+                    int point = jTable1.rowAtPoint(e.getPoint());
+                    jTable1.setRowSelectionInterval(point, point);
                 
-                JPopupMenu popup = new JPopupMenu();
-                JMenuItem menuItem = new JMenuItem("void");
-                menuItem.addActionListener(new ActionListener() {
+                    JPopupMenu popup = new JPopupMenu();
+                    JMenuItem menuItem = new JMenuItem("void?");
+                    menuItem.addActionListener(new ActionListener() {
 
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         transactionController.voidMenuItem(jTable1.getSelectedRow());
                         refreshTable();
                     }
-                });
-                popup.add(menuItem);
-                popup.show(e.getComponent(), e.getX(), e.getY());
+                    });
+                    popup.add(menuItem);
+                    popup.show(e.getComponent(), e.getX(), e.getY());
+                }
+                
+            }
+        });
+    }
+    
+    private void initOverride(){
+        jTextFieldSum.addMouseListener(new MouseAdapter() {
+            
+            @Override
+            public void mouseReleased(MouseEvent e){
+                if(e.getButton() == MouseEvent.BUTTON3){
+                    JPopupMenu popup = new JPopupMenu();
+                    JMenuItem menuItem = new JMenuItem("on the House?");
+                    menuItem.addActionListener(new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        jTextFieldSum.setText("0");
+                    }
+                    });
+                    popup.add(menuItem);
+                    popup.show(e.getComponent(), e.getX(), e.getY());
+                }
+                
             }
         });
     }
@@ -224,7 +251,16 @@ public class MainUi extends javax.swing.JFrame {
 
     private void jButtonCompleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCompleteActionPerformed
         // TODO add your handling code here:
-        transactionController.saveTransaction();
+        
+        if(JOptionPane.showConfirmDialog(
+                this, "Transaction Complete", "Complete", JOptionPane.OK_CANCEL_OPTION)
+                == JOptionPane.OK_OPTION){
+            transactionController.saveTransaction();
+            cashUi.reset();
+            transactionController.resetTransaction();
+            refreshTable();
+        }
+        
     }//GEN-LAST:event_jButtonCompleteActionPerformed
 
     private void jTextFieldSumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldSumActionPerformed
