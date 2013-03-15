@@ -4,13 +4,13 @@
  */
 package IMS.view;
 
-import Core.view.SuperUi;
 import IMS.controller.InventoryController;
 import IMS.domain.Inventory;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import main.MagnusOpus;
 
 /**
  *
@@ -18,13 +18,13 @@ import javax.swing.table.DefaultTableModel;
  */
 public class InventoryUi extends javax.swing.JFrame {
     private InventoryPendingUi inventoryPendingUi;
-    private SuperUi superUi;
+    private MagnusOpus superUi;
     
     
     /**
      * Creates new form InventoryUi
      */
-    public InventoryUi(final SuperUi superUi) {
+    public InventoryUi(final MagnusOpus superUi) {
         initComponents();
         initTable();
         inventoryPendingUi = new InventoryPendingUi(this);
@@ -80,11 +80,11 @@ public class InventoryUi extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonOrder)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonRefresh)))
+                        .addComponent(jButtonRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -129,13 +129,14 @@ public class InventoryUi extends javax.swing.JFrame {
         ArrayList<Inventory> arrInventory;
         InventoryController ic = new InventoryController();
         arrInventory = ic.loadInventory();
-        String[] col = {"Name", "Quantity", "Price", "Stock_date"};
+        String[] col = {"Name", "Quantity", "Unit", "Unit Price", "Stock_date"};
         Object[][] cell = new String[arrInventory.size()][col.length];
         for(int i = 0; i < arrInventory.size(); i++){
             cell[i][0] = arrInventory.get(i).getName();
             cell[i][1] = String.valueOf(arrInventory.get(i).getQuantity());
-            cell[i][2] = String.valueOf(arrInventory.get(i).getPrice());
-            cell[i][3] = arrInventory.get(i).getStockDate().toString();
+            cell[i][2] = arrInventory.get(i).getUnit();
+            cell[i][3] = String.valueOf(arrInventory.get(i).getUnitPrice());
+            cell[i][4] = arrInventory.get(i).getDate().toString();
         }
        
         

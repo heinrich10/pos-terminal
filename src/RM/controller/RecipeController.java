@@ -4,7 +4,6 @@
  */
 package RM.controller;
 
-import Core.domain.DBEntity;
 import IMS.controller.IngredientCodeController;
 import IMS.domain.IngredientCode;
 import OMS.controller.MenuController;
@@ -12,6 +11,7 @@ import OMS.domain.MenuItem;
 import RM.domain.Ingredient;
 import RM.domain.Recipe;
 import RM.service.RecipeService;
+import core.domain.DBEntity;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -39,18 +39,22 @@ public class RecipeController {
         
         Recipe recipe = null;
         
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement pst = null;
+        
         try {
           
             DBEntity db = new DBEntity();           
                 
-            Connection con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
+            con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
      
-            PreparedStatement pst = con.prepareStatement(
+            pst = con.prepareStatement(
                     "SELECT  OMR.code_menu, OMR.code_ingredient, IIC.name, quantity, OMR.unit, CU.name FROM OMS_MI_RECIPE OMR join IM_INGREDIENT_CODE IIC on OMR.code_ingredient = IIC.code join CORE_UNITS CU on OMR.unit = CU.code_unit where code_menu = ?");
             
             pst.setString(1, menuItem.getCode());
             
-            ResultSet rs = pst.executeQuery();
+            rs = pst.executeQuery();
             
             recipe = new Recipe();
             
@@ -63,7 +67,27 @@ public class RecipeController {
         } catch (SQLException ex) {
             Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
            
+        } finally{
+            
+            try {
+                if(rs != null){
+                    rs.close();
+                }
+                
+                if(pst != null){
+                    pst.close();
+                }
+                
+                if(con != null){
+                   con.close(); 
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(IngredientCodeController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
+        
         return recipe;
         
     }

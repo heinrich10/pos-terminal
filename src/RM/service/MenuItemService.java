@@ -4,9 +4,8 @@
  */
 package RM.service;
 
-import Core.domain.DBEntity;
-import OMS.controller.MenuController;
 import OMS.domain.MenuItem;
+import core.domain.DBEntity;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -21,13 +20,17 @@ import java.util.logging.Logger;
 public class MenuItemService {
     
     public void modifyMenuItem(MenuItem menuItem){
+        
+        Connection con = null;
+        PreparedStatement pst = null;
+        
         try {
           
             DBEntity db = new DBEntity();           
                 
-            Connection con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
+            con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
      
-            PreparedStatement pst = con.prepareStatement(
+            pst = con.prepareStatement(
                     "UPDATE OMS_MENU_ITEM SET update_date = ?, update_user = ?, update_program = ?, type = ?, name = ?, description = ?, price = ? where code = ? ");
             
             pst.setDate(1, new java.sql.Date(new java.util.Date().getTime()));
@@ -42,8 +45,24 @@ public class MenuItemService {
             pst.executeUpdate();
             
         } catch (SQLException ex) {
-            Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MenuItemService.class.getName()).log(Level.SEVERE, null, ex);
            
+        } finally{
+            
+            try {
+                
+                if(pst != null){
+                    pst.close();
+                }
+                
+                if(con != null){
+                   con.close(); 
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuItemService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
     }
 }

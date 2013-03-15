@@ -34,17 +34,17 @@
                               <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jTextFieldDescription" max="32767" attributes="0"/>
-                              <Component id="jTextFieldCode" max="32767" attributes="0"/>
-                              <Component id="jComboBox1" pref="100" max="32767" attributes="0"/>
+                              <Component id="jComboBox1" max="32767" attributes="0"/>
                               <Component id="jTextFieldName" max="32767" attributes="0"/>
-                              <Component id="jTextFieldPrice" max="32767" attributes="0"/>
+                              <Component id="jTextFieldCode" min="-2" pref="199" max="-2" attributes="0"/>
+                              <Component id="jTextFieldPrice" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
