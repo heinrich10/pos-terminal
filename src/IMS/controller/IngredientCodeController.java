@@ -6,16 +6,12 @@ package IMS.controller;
 
 import IMS.domain.IngredientCode;
 import IMS.domain.IngredientType;
-import IMS.service.IngredientCodeService;
-import core.domain.DBEntity;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import IMS.domain.Inventory;
+import core.domain.SessionFactory;
+import db.mapper.IngredientMapper;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.HashMap;
+import org.apache.ibatis.session.SqlSession;
 
 /**
  *
@@ -23,109 +19,59 @@ import java.util.logging.Logger;
  */
 public class IngredientCodeController {
     
-    private IngredientCodeService ingredientCodeService;
-    
-    public IngredientCodeController(){
-        ingredientCodeService = new IngredientCodeService();
-    }
-    
     public ArrayList<IngredientCode> loadIngredientCode(){
-        ArrayList<IngredientCode> arrInventoryCode = null;
-        
-        Connection con = null;
-        ResultSet rs = null;
-        PreparedStatement pst = null;
-        
-        try {
-            DBEntity db = new DBEntity();
-            con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
-            
-            pst = con.prepareStatement(
-                    "SELECT  IIC.code, IIC.brand, IIC.name, IIC.type, IIT.name FROM IM_INGREDIENT_CODE IIC JOIN IM_INGREDIENT_TYPE IIT ON IIC.type = IIT.code");
-            rs = pst.executeQuery();
-            
-            arrInventoryCode = new ArrayList();
-            
-            while(rs.next()){
-                arrInventoryCode.add(new IngredientCode(rs.getString("code"), rs.getString("brand"), rs.getString("name"), rs.getString("type"), rs.getString("IIT.name")));
-            }
-           
-        } catch (SQLException ex) {
-            Logger.getLogger(InventoryController.class.getName()).log(Level.SEVERE, null, ex);
-        } finally{
-            
-            try {
-                if(rs != null){
-                    rs.close();
-                }
-                
-                if(pst != null){
-                    pst.close();
-                }
-                
-                if(con != null){
-                   con.close(); 
-                }
-                
-            } catch (SQLException ex) {
-                Logger.getLogger(IngredientCodeController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
+        ArrayList<IngredientCode> arrIngredientCode;
+        try (SqlSession session = SessionFactory.getSqlSession().openSession()) {
+            IngredientMapper mapper = session.getMapper(IngredientMapper.class);
+            arrIngredientCode = mapper.loadIngredientCode();
         }
         
-         return arrInventoryCode;
+        return arrIngredientCode;
     }
     
     public ArrayList<IngredientType> loadIngredientType(){
-        ArrayList<IngredientType> arrIngredientType = null;
-        Connection con = null;
-        ResultSet rs = null;
-        PreparedStatement pst = null;
+        ArrayList<IngredientType> arrIngredientType;
         
-        try {
-            DBEntity db = new DBEntity();
-            con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
-            
-            pst = con.prepareStatement(
-                    "SELECT  code, name FROM IM_INGREDIENT_TYPE");
-            rs = pst.executeQuery();
-            
-            arrIngredientType = new ArrayList();
-            
-            while(rs.next()){
-                arrIngredientType.add(new IngredientType(rs.getString("code"), rs.getString("name")));
-            }
-           
-        } catch (SQLException ex) {
-            Logger.getLogger(InventoryController.class.getName()).log(Level.SEVERE, null, ex);
-        } finally{
-            
-            try {
-                if(rs != null){
-                    rs.close();
-                }
-                
-                if(pst != null){
-                    pst.close();
-                }
-                
-                if(con != null){
-                   con.close(); 
-                }
-                
-            } catch (SQLException ex) {
-                Logger.getLogger(IngredientCodeController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try (SqlSession session = SessionFactory.getSqlSession().openSession()) {
+            IngredientMapper mapper = session.getMapper(IngredientMapper.class);
+            arrIngredientType = mapper.loadIngredientType();
         }
+        return arrIngredientType;
+    }
+    
+    public Inventory[] loadIngredientLink(String ingredientCode){
         
-         return arrIngredientType;
+        Inventory[] inventoryList = new Inventory[2];
+        
+        try (SqlSession session = SessionFactory.getSqlSession().openSession()){
+            IngredientMapper mapper = session.getMapper(IngredientMapper.class);
+            inventoryList[0] = mapper.loadIngredientLinkOne(ingredientCode);
+            inventoryList[1] = mapper.loadIngredientLinkTwo(ingredientCode);
+        }
+        return inventoryList;
     }
     
     public void saveIngredientCode(IngredientCode ingredientCode){
-        ingredientCodeService.saveIngredientCode(ingredientCode);
+         try (SqlSession session = SessionFactory.getSqlSession().openSession()){
+            IngredientMapper mapper = session.getMapper(IngredientMapper.class);
+            mapper.saveIngredientCode(ingredientCode);
+            session.commit();
+        }
     }
     
     public void deleteIngredientCode(String code){
-        ingredientCodeService.deleteIngredientCode(code);
+        try (SqlSession session = SessionFactory.getSqlSession().openSession()){
+            IngredientMapper mapper = session.getMapper(IngredientMapper.class);
+            mapper.deleteIngredientCode(code);
+            session.commit();
+        }
+    }
+    
+    public void saveInventoryLink(HashMap map){
+        try (SqlSession session = SessionFactory.getSqlSession().openSession()){
+            IngredientMapper mapper = session.getMapper(IngredientMapper.class);
+            mapper.saveInventoryLink(map);
+            session.commit();
+        }
     }
 }

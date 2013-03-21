@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="db.mapper.IngredientMapper">
+    
+    <select id = "loadIngredientCode" resultMap="loadIngredientCodeResultMap">
+        SELECT  
+        IIC.code,
+        IIC.brand, 
+        IIC.name,
+        IIC.type, 
+        IIT.name 
+        FROM 
+        IM_INGREDIENT_CODE IIC 
+        JOIN 
+        IM_INGREDIENT_TYPE IIT
+        ON IIC.type = IIT.code 
+        order by 
+        IIC.code
+    </select>
+    
+    <resultMap id = "loadIngredientCodeResultMap" type = "IMS.domain.IngredientCode">
+            <constructor>
+                <idArg column="code" javaType="String"/>
+                <idArg column="brand" javaType="String"/>
+                <idArg column="name" javaType="String"/>
+                <idArg column="type" javaType="String"/>
+                <idArg column="IIT.name" javaType="String"/>
+            </constructor>
+    </resultMap>
+    
+    <select id = "loadIngredientType" resultMap="loadIngredientTypeResultMap">
+        SELECT
+        code, 
+        name 
+        FROM 
+        IM_INGREDIENT_TYPE
+    </select>
+    
+    <resultMap id = "loadIngredientTypeResultMap" type = "IMS.domain.IngredientType">
+            <constructor>
+                <idArg column="code" javaType="String"/>
+                <idArg column="name" javaType="String"/>
+            </constructor>
+    </resultMap>
+    
+    
+    <select id = "loadIngredientLinkOne" parameterType="String" resultMap="loadIngredientLinkResultMap">
+        SELECT 
+        III.item_number, 
+        CONCAT(IIC.brand, " ", IIC.name) as name, 
+        III.code_ingredient, 
+        III.quantity, 
+        III.unit_price, 
+        CU.name, 
+        III.code_unit, 
+        III.stock_date 
+        FROM 
+        CORE_INVENTORY_INGREDIENT CII 
+        JOIN 
+        (MO.IM_INGREDIENT_INVENTORY III 
+                JOIN 
+                MO.IM_INGREDIENT_CODE IIC 
+                ON 
+                III.code_ingredient = IIC.code 
+                        JOIN 
+                        CORE_UNITS CU 
+                        ON 
+                        III.code_unit = CU.code_unit) 
+        ON 
+        CII.item_number = III.item_number
+        
+        where CII.code_ingredient = #{codeIngredient}
+    </select>
+    
+    <select id = "loadIngredientLinkTwo" parameterType="String" resultMap="loadIngredientLinkResultMap">
+        SELECT 
+        III.item_number, 
+        CONCAT(IIC.brand, " ", IIC.name) as name, 
+        III.code_ingredient, 
+        III.quantity, 
+        III.unit_price, 
+        CU.name, 
+        III.code_unit, 
+        III.stock_date 
+        FROM 
+        CORE_INVENTORY_INGREDIENT CII 
+        JOIN 
+        (MO.IM_INGREDIENT_INVENTORY III 
+                JOIN 
+                MO.IM_INGREDIENT_CODE IIC 
+                ON 
+                III.code_ingredient = IIC.code 
+                        JOIN 
+                        CORE_UNITS CU 
+                        ON 
+                        III.code_unit = CU.code_unit) 
+        ON 
+        CII.item_number2 = III.item_number
+        
+        where CII.code_ingredient = #{codeIngredient}
+    </select>
+    
+    <resultMap id = "loadIngredientLinkResultMap" type = "IMS.domain.Inventory">
+            <constructor>
+                <idArg column="item_number" javaType="_long"/>
+                <idArg column="name" javaType="String"/>
+                <idArg column="code_ingredient" javaType="String"/>
+                <idArg column="quantity" javaType="_int"/>
+                <idArg column="unit_price" javaType="_double"/>
+                <idArg column="CU.name" javaType="String"/>
+                <idArg column="code_unit" javaType="String" />
+                <idArg column="unit_price" javaType="_double" />
+                <idArg column="stock_date" javaType="java.sql.Date"/>
+            </constructor>
+    </resultMap>
+    
+    <insert id = "saveIngredientCode" parameterType="IMS.domain.IngredientCode">
+        insert into 
+        IM_INGREDIENT_CODE(
+        create_date, 
+        update_date, 
+        update_user, 
+        update_program, 
+        code, 
+        brand, 
+        name,
+        type) 
+        values (
+        sysdate(),
+        sysdate(), 
+        "pgm",
+        "ICService", 
+        #{code}, 
+        #{brand}, 
+        #{name}, 
+        #{type})
+   </insert>
+    
+    <delete id="deleteIngredientCode" parameterType="String">
+        delete
+        from 
+        IM_INGREDIENT_CODE 
+        where 
+        code = ${code}
+    </delete>
+    
+    <insert id="saveInventoryLink" parameterType="hashmap">
+        insert into 
+        CORE_INVENTORY_INGREDIENT(
+        create_date, 
+        update_date, 
+        update_user, 
+        update_program, 
+        code_ingredient, 
+        item_number, 
+        item_number2) 
+        values (
+        sysdate(),
+        sysdate(), 
+        "pgm", 
+        "ICService",
+        #{1},
+        #{2},
+        #{3})
+        on duplicate key update 
+        update_date = sysdate(), 
+        item_number = #{2}, 
+        item_number2 = #{3}
+    </insert>
+</mapper>

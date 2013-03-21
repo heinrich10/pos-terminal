@@ -31,6 +31,7 @@ public class RecipeUi extends javax.swing.JFrame {
     private MenuItem menuItem;
     private ArrayList<String> arrString;
     private Recipe recipeDelete;
+    ArrayList<String> arrUnitName;
     /**
      * Creates new form RecipeUi
      */
@@ -196,17 +197,22 @@ public class RecipeUi extends javax.swing.JFrame {
 
     private void jButtonAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAcceptActionPerformed
         // TODO add your handling code here:
+        JComboBox cb;
         for(int i = 0; i < jTableRecipe.getRowCount(); i++){
            Ingredient ingredient = recipe.getIngredient(i);
            DefaultCellEditor ce = (DefaultCellEditor) jTableRecipe.getCellEditor(i, 1);
-           JComboBox cb = (JComboBox) ce.getComponent();
+           cb = null;
+           cb = (JComboBox) ce.getComponent();
            Ingredient temp = new Ingredient(
                    menuItem.getCode(), 
                    ingredient.getCodeIngredient(), 
                    "", 
                    Integer.valueOf(jTableRecipe.getValueAt(i, 0).toString()), 
-                   arrUnit.get(cb.getSelectedIndex()).getCodeUnit(),
+                   //arrUnit.get(cb.getSelectedIndex()).getCodeUnit(),
+                   arrUnit.get(arrUnitName.indexOf(jTableRecipe.getValueAt(i, 1).toString())).getCodeUnit(),
                    "");
+           System.out.println("Unit: " + i);
+           System.out.println(arrUnit.get(cb.getSelectedIndex()).getCodeUnit() + " " + cb.getSelectedIndex());
            recipe.replace(i,temp);
         }
         recipeController.deleteRecipe(recipeDelete);
@@ -264,10 +270,11 @@ public class RecipeUi extends javax.swing.JFrame {
         jTableRecipe.setModel(new DefaultTableModel(cell, col));
         
         TableColumn tableColumn = jTableRecipe.getColumnModel().getColumn(1);
-        
         String[] unitName = new String[arrUnit.size()];
+        arrUnitName = new ArrayList(arrUnit.size());
         
         for(int i = 0; i < unitName.length; i++){
+            arrUnitName.add(arrUnit.get(i).getName());
             unitName[i] = arrUnit.get(i).getName();
         }
         

@@ -127,10 +127,11 @@ public class InventoryPendingUi extends javax.swing.JFrame {
             Inventory inventory = arrInventory.get(jTable1.getSelectedRow());
             Date date = new SimpleDateFormat("yyyy-MM-d", Locale.ENGLISH).parse(roastDate);
             inventory.setRoastDate(new java.sql.Date(date.getTime()));
-            inventoryController.addPendingHist(inventory);
-            inventoryController.deleteInventoryPending(inventory.getItemNumber());
+          
             UnitController unitController = new UnitController();
+            
             inventory = unitController.loadPostUnit(inventory);
+            
             inventoryController.moveToInventory(inventory);
             initTable();
             inventoryUi.initTable();
