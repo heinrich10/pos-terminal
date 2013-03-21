@@ -32,7 +32,7 @@ public class RecipeService {
             //PreparedStatement pst = con.prepareStatement(query);
                 
             for(int i = 0; i < recipe.size(); i++){
-                String query = "insert into OMS_MI_RECIPE(create_date, update_date, update_user, update_program, code_menu, code_ingredient, quantity, unit) values (?, ?, ?, ?, ?, ?, ?, ?) on duplicate key update quantity = ?, update_date = ?";
+                String query = "insert into OMS_MI_RECIPE(create_date, update_date, update_user, update_program, code_menu, code_ingredient, quantity, unit) values (?, ?, ?, ?, ?, ?, ?, ?) on duplicate key update quantity = ?, update_date = ?, unit = ?";
                 pst = con.prepareStatement(query);    
                 pst.setDate(1, new java.sql.Date(new java.util.Date().getTime()));
                 pst.setDate(2, new java.sql.Date(new java.util.Date().getTime()));
@@ -44,6 +44,7 @@ public class RecipeService {
                 pst.setString(8, recipe.getIngredient(i).getUnit());
                 pst.setInt(9, recipe.getIngredient(i).getQuantity());
                 pst.setDate(10, new java.sql.Date(new java.util.Date().getTime()));
+                pst.setString(11, recipe.getIngredient(i).getUnit());
                 pst.executeUpdate();
                     
             }

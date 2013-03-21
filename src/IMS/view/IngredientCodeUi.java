@@ -17,11 +17,15 @@ import javax.swing.table.DefaultTableModel;
 public class IngredientCodeUi extends javax.swing.JFrame {
     private IngredientCodeAddUi ingredientCodeAddUi;
     private IngredientCodeController ingredientCodeController;
+    private InventoryLinkUi inventoryLinkUi;
+    ArrayList<IngredientCode> arrIngredientCode;
+    
     /**
      * Creates new form IngredientCodeUi
      */
     public IngredientCodeUi() {
         ingredientCodeController = new IngredientCodeController();
+        inventoryLinkUi = new InventoryLinkUi(ingredientCodeController);
         initComponents();
         loadTable();
         ingredientCodeAddUi = new IngredientCodeAddUi(this, ingredientCodeController);
@@ -62,6 +66,11 @@ public class IngredientCodeUi extends javax.swing.JFrame {
         });
 
         jButtonLink.setText("Link With Inventory");
+        jButtonLink.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLinkActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -118,6 +127,12 @@ public class IngredientCodeUi extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
+    private void jButtonLinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLinkActionPerformed
+        // TODO add your handling code here:
+        inventoryLinkUi.setIngredient(arrIngredientCode.get(jTable1.getSelectedRow()));
+        inventoryLinkUi.setVisible(true);
+    }//GEN-LAST:event_jButtonLinkActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -135,7 +150,7 @@ public class IngredientCodeUi extends javax.swing.JFrame {
     
     public void loadTable(){
         
-        ArrayList<IngredientCode> arrIngredientCode;
+        
         
         
         arrIngredientCode = ingredientCodeController.loadIngredientCode();

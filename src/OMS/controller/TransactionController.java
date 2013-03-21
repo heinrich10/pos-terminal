@@ -45,6 +45,7 @@ public class TransactionController {
     
     public void saveTransaction(){
         transactionService.saveTransaction(transaction);
+        transactionService.subtractInventory(transaction.getOrderList());
         
     }
     

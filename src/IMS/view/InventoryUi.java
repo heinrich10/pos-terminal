@@ -6,11 +6,21 @@ package IMS.view;
 
 import IMS.controller.InventoryController;
 import IMS.domain.Inventory;
+import RM.domain.Ingredient;
+import db.mapper.InventoryMapper;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import main.MagnusOpus;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 /**
  *
@@ -128,7 +138,14 @@ public class InventoryUi extends javax.swing.JFrame {
         
         ArrayList<Inventory> arrInventory;
         InventoryController ic = new InventoryController();
-        arrInventory = ic.loadInventory();
+        arrInventory = ic.loadInventory(null);
+        //start mybatis test
+        
+        //arrInventory = new ArrayList();
+        //arrInventory.add(inventory);
+        //end mybatus test
+        
+        
         String[] col = {"Name", "Quantity", "Unit", "Unit Price", "Stock_date"};
         Object[][] cell = new String[arrInventory.size()][col.length];
         for(int i = 0; i < arrInventory.size(); i++){
@@ -142,6 +159,7 @@ public class InventoryUi extends javax.swing.JFrame {
         
         jTable1.setModel(new DefaultTableModel(cell, col));
      }
+     
     
      
 }

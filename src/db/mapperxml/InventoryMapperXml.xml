@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="db.mapper.InventoryMapper">
+    <select id = "loadInventory" parameterType="String" resultMap="loadInventoryResultMap">
+        SELECT 
+        III.item_number, 
+        CONCAT(IIC.brand, " ", IIC.name) as name, 
+        III.code_ingredient, 
+        III.quantity, 
+        III.unit_price, 
+        CU.name, 
+        III.code_unit, 
+        III.stock_date 
+        FROM
+       
+        MO.IM_INGREDIENT_INVENTORY III 
+        JOIN 
+        MO.IM_INGREDIENT_CODE IIC 
+        ON 
+        III.code_ingredient = IIC.code 
+      
+        JOIN 
+        CORE_UNITS CU 
+        ON 
+        III.code_unit = CU.code_unit
+      
+        <if test="_parameter != null">
+            WHERE
+            III.code_ingredient = #{codeIngredient}
+        </if>
+    </select>
+  
+    <resultMap id = "loadInventoryResultMap" type = "IMS.domain.Inventory">
+        <constructor>
+            <idArg column="item_number" javaType="_long"/>
+            <idArg column="name" javaType="String"/>
+            <idArg column="code_ingredient" javaType="String"/>
+            <idArg column="quantity" javaType="_int"/>
+            <idArg column="unit_price" javaType="_double"/>
+            <idArg column="CU.name" javaType="String"/>
+            <idArg column="code_unit" javaType="String" />
+            <idArg column="unit_price" javaType="_double" />
+            <idArg column="stock_date" javaType="java.sql.Date"/>
+        </constructor>
+    </resultMap>
+
+    <select id = "loadInventoryPending" resultMap="loadInventoryPendingResultMap">
+        SELECT 
+        IIP.item_number,
+        CONCAT(IIC.brand, " ", IIC.name) as name,
+        IIP.code_ingredient,
+        IIP.quantity,
+        IIP.unit_price,
+        CU.name,
+        IIP.code_unit,
+        IIP.total_price,
+        IIP.order_date 
+        FROM 
+        IM_INGREDIENT_PENDING IIP 
+        JOIN
+        IM_INGREDIENT_CODE IIC 
+        ON IIP.code_ingredient = IIC.code 
+      
+        JOIN CORE_UNITS CU 
+        ON 
+        IIP.code_unit = CU.code_unit
+      
+    </select>
+  
+    <resultMap id = "loadInventoryPendingResultMap" type = "IMS.domain.Inventory">
+        <constructor>
+        
+            <idArg column="item_number" javaType="_long"/>
+            <idArg column="name" javaType="String"/>
+            <idArg column="code_ingredient" javaType="String"/>
+            <idArg column="quantity" javaType="_int"/>
+            <idArg column="unit_price" javaType="_double"/>
+            <idArg column="CU.name" javaType="String"/>
+            <idArg column="code_unit" javaType="String" />
+            <idArg column="total_price" javaType="_double" />
+            <idArg column="order_date" javaType="java.sql.Date"/>
+        </constructor>
+    </resultMap>
+    
+    <insert id = "saveInventoryPending" parameterType="IMS.domain.Inventory">
+        insert into 
+        IM_INGREDIENT_PENDING(
+        create_date, 
+        update_date, 
+        update_user, 
+        update_program, 
+        code_ingredient, 
+        quantity, 
+        unit_price, 
+        code_unit, 
+        total_price, 
+        order_date) 
+        values (
+        sysdate(), 
+        sysdate(), 
+        "pgm", 
+        "IPService", 
+        #{codeIngredient}, 
+        #{quantity}, 
+        #{unitPrice}, 
+        #{unitCode},
+        #{totalPrice}, 
+        #{date})
+    </insert>
+    
+    <delete id="deleteInventoryPending" parameterType="_long">
+        delete from 
+        IM_INGREDIENT_PENDING 
+        where 
+        item_number = #{index}
+    </delete>
+    
+    <insert id="saveToInventory" parameterType="IMS.domain.Inventory">
+        insert into 
+        IM_INGREDIENT_INVENTORY(
+        create_date, 
+        update_date, 
+        update_user, 
+        update_program, 
+        code_ingredient, 
+        quantity, 
+        total_price, 
+        code_unit, 
+        unit_price, 
+        stock_date, 
+        roast_date) 
+        values (
+        sysdate(), 
+        sysdate(), 
+        "pgm", 
+        "IPService", 
+        #{codeIngredient}, 
+        #{quantity},
+        #{totalPrice},
+        #{unitCode}, 
+        #{unitPrice}, 
+        sysdate(), 
+        #{roastDate})
+    </insert>
+    
+    <insert id="addPendingHist" parameterType="IMS.domain.Inventory">
+        
+        insert into 
+        IM_INGREDIENT_PENDING_HIST(
+        create_date,
+        update_date,
+        update_user, 
+        update_program,
+        code_ingredient,
+        quantity,
+        unit_price, 
+        code_unit, 
+        total_price, 
+        order_date, 
+        delivery_date) 
+        values (
+        sysdate(),
+        sysdate(), 
+        "pgm", 
+        "IPService", 
+        #{codeIngredient}, 
+        #{quantity}, 
+        #{unitPrice}, 
+        #{unitCode}, 
+        #{totalPrice}, 
+        #{date},
+        sysdate())
+    </insert>
+    
+    
+</mapper>
+
