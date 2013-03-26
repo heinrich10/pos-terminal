@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="db.mapper.TransactionMapper">
+    
+    <insert id = "saveTransaction" parameterType="OMS.domain.Transaction" useGeneratedKeys="true" keyProperty="tranId">
+        insert into 
+        OMS_TRANSACTION(
+        create_date, 
+        update_date, 
+        update_user, 
+        update_program, 
+        ind_dine_in, 
+        recieved_amount, 
+        change_amount) 
+        values (
+        sysdate(), 
+        sysdate(), 
+        "pgm", 
+        "TranService", 
+        #{dineIn},
+        #{recievedAmount}, 
+        #{change})
+    </insert>
+    
+    <insert id="saveOrderList" parameterType="map">
+        insert into 
+        OMS_TRANSACTION_ORDER(
+        create_date, 
+        update_date, 
+        update_user, 
+        update_program, 
+        code_transaction, 
+        menu_item_name,
+        menu_item_price,
+        recipe_price) 
+        values 
+        <foreach collection="param2" item="item" index="index" separator="," >
+            (sysdate(), 
+            sysdate(), 
+            "pgm", 
+            "TranService", 
+            #{param1},
+            #{item.name},
+            #{item.price},
+            #{item.recipePrice})
+        </foreach>
+    </insert>
+    
+    <select id = "loadTransactionReport" parameterType="String" resultMap="loadTransactionReportResultMap">
+        select 
+        OT.code_transaction,
+        OT.ind_dine_in,
+        OTO.menu_item_name,
+        OTO.menu_item_price,
+        (OT.recieved_amount - OT.change_amount) as total_amount,
+        OT.time_stamp
+
+        from
+        OMS_TRANSACTION OT
+        join
+        OMS_TRANSACTION_ORDER OTO
+        on
+        OT.code_transaction = OTO.code_transaction
+        where
+        OT.create_date = STR_TO_DATE(#{date},'%Y-%m-%d');
+      
+    </select>
+  
+    <resultMap id = "loadTransactionReportResultMap" type = "OMS.domain.TransactionData">
+        <constructor>
+        
+            <idArg column="code_transaction" javaType="_long"/>
+            <idArg column="ind_dine_in" javaType="_boolean"/>
+            <idArg column="menu_item_name" javaType="String"/>
+            <idArg column="menu_item_price" javaType="_double"/>
+            <idArg column="total_amount" javaType="_double"/>
+            <idArg column="time_stamp" javaType="java.util.Date"/>
+        </constructor>
+    </resultMap>
+    
+    
+</mapper>

@@ -14,8 +14,9 @@ public class MenuItem {
     private String type;
     private String name;
     private String description;
-    private double    price;
+    private double price;
     private String typeCode;
+    private double recipePrice;
 
     public MenuItem(String code, String type, String name, String description, double price, String typeCode){
         this.code = code;
@@ -49,6 +50,14 @@ public class MenuItem {
     
     public String getTypeCode(){
         return typeCode;
+    }
+    
+    public void setRecipePrice(double recipePrice){
+        this.recipePrice = recipePrice;
+    }
+    
+    public double getRecipePrice(){
+        return recipePrice;
     }
     
 }

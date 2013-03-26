@@ -4,7 +4,7 @@
  */
 package IMS.view;
 
-import IMS.controller.IngredientCodeController;
+import IMS.controller.IngredientController;
 import IMS.domain.IngredientCode;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class IngredientCodeUi extends javax.swing.JFrame {
     private IngredientCodeAddUi ingredientCodeAddUi;
-    private IngredientCodeController ingredientCodeController;
+    private IngredientController ingredientCodeController;
     private InventoryLinkUi inventoryLinkUi;
     ArrayList<IngredientCode> arrIngredientCode;
     
@@ -24,7 +24,7 @@ public class IngredientCodeUi extends javax.swing.JFrame {
      * Creates new form IngredientCodeUi
      */
     public IngredientCodeUi() {
-        ingredientCodeController = new IngredientCodeController();
+        ingredientCodeController = new IngredientController();
         inventoryLinkUi = new InventoryLinkUi(ingredientCodeController);
         initComponents();
         loadTable();

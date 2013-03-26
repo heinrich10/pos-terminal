@@ -175,6 +175,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         sysdate())
     </insert>
     
+    <delete id="deleteInventory" parameterType="_long">
+        delete from 
+        IM_INGREDIENT_INVENTORY 
+        where 
+        item_number = #{index}
+    </delete>
     
+    <update id="updateInventory" parameterType="map">
+        UPDATE 
+        IM_INGREDIENT_INVENTORY 
+        SET 
+        update_date = sysdate(), 
+        update_user = "pgm", 
+        update_program = "IPService", 
+        quantity = #{param2} 
+        where 
+        item_number = #{param1}
+        
+    </update>    
 </mapper>
 

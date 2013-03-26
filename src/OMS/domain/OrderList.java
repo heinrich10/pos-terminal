@@ -38,5 +38,17 @@ public class OrderList {
     public void reset(){
         arrMenuItem.clear();
     }
+
+    public ArrayList<MenuItem> toArrayList(){
+        return arrMenuItem;
+    }
     
+//    public HashMap toHashMap(){
+//        HashMap map = new HashMap();
+//        
+//        for(int i = 0; i < arrMenuItem.size(); i++){
+//            map.put(String.valueOf(i+1), arrMenuItem.get(i));
+//        }
+//        return map;
+//    }
 }

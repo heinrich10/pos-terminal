@@ -14,6 +14,7 @@ public class Transaction {
     private double recievedAmount = 0;
     private double change = 0;
     private boolean indDineIn = true;
+    private long tranId;
     
     public Transaction(){
         orderList = new OrderList();
@@ -59,4 +60,11 @@ public class Transaction {
         this.indDineIn = indDineIn;
     }
     
+    public void setTranId(long tranId){
+        this.tranId = tranId;
+    }
+    
+    public long getTranId(){
+        return tranId;
+    }
 }
