@@ -30,7 +30,7 @@ public class MenuController {
             Connection con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
      
             PreparedStatement pst = con.prepareStatement(
-                    "SELECT  OMI.code, OMT.name, OMI.name, OMI.description, OMI.price, OMI.type FROM OMS_MENU_ITEM OMI JOIN OMS_MI_TYPE OMT ON OMI.type = OMT.code");
+                    "SELECT  OMI.code, OMT.name, OMI.name, OMI.description, OMI.price, OMI.type FROM oms_menu_item OMI JOIN oms_mi_type OMT ON OMI.type = OMT.code");
           
             ResultSet rs = pst.executeQuery();
             

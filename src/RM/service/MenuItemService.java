@@ -31,7 +31,7 @@ public class MenuItemService {
             con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
      
             pst = con.prepareStatement(
-                    "UPDATE OMS_MENU_ITEM SET update_date = ?, update_user = ?, update_program = ?, type = ?, name = ?, description = ?, price = ? where code = ? ");
+                    "UPDATE oms_menu_item SET update_date = ?, update_user = ?, update_program = ?, type = ?, name = ?, description = ?, price = ? where code = ? ");
             
             pst.setDate(1, new java.sql.Date(new java.util.Date().getTime()));
             pst.setString(2, "pgm");

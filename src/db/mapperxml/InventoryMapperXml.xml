@@ -16,14 +16,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         III.stock_date 
         FROM
        
-        MO.IM_INGREDIENT_INVENTORY III 
+        im_ingredient_inventory III 
         JOIN 
-        MO.IM_INGREDIENT_CODE IIC 
+        im_ingredient_code IIC 
         ON 
         III.code_ingredient = IIC.code 
       
         JOIN 
-        CORE_UNITS CU 
+        core_units CU 
         ON 
         III.code_unit = CU.code_unit
       
@@ -59,12 +59,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         IIP.total_price,
         IIP.order_date 
         FROM 
-        IM_INGREDIENT_PENDING IIP 
+        im_ingredient_pending IIP 
         JOIN
-        IM_INGREDIENT_CODE IIC 
+        im_ingredient_code IIC 
         ON IIP.code_ingredient = IIC.code 
       
-        JOIN CORE_UNITS CU 
+        JOIN core_units CU 
         ON 
         IIP.code_unit = CU.code_unit
       
@@ -87,7 +87,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <insert id = "saveInventoryPending" parameterType="IMS.domain.Inventory">
         insert into 
-        IM_INGREDIENT_PENDING(
+        im_ingredient_pending(
         create_date, 
         update_date, 
         update_user, 
@@ -113,7 +113,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <delete id="deleteInventoryPending" parameterType="_long">
         delete from 
-        IM_INGREDIENT_PENDING 
+        im_ingredient_pending 
         where 
         item_number = #{index}
     </delete>
@@ -149,7 +149,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="addPendingHist" parameterType="IMS.domain.Inventory">
         
         insert into 
-        IM_INGREDIENT_PENDING_HIST(
+        im_ingredient_pending_hist(
         create_date,
         update_date,
         update_user, 

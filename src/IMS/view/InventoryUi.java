@@ -10,7 +10,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-import main.MagnusOpus;
+import main.MagnumOpus;
 
 /**
  *
@@ -18,13 +18,13 @@ import main.MagnusOpus;
  */
 public class InventoryUi extends javax.swing.JFrame {
     private InventoryPendingUi inventoryPendingUi;
-    private MagnusOpus superUi;
+    private MagnumOpus superUi;
     
     
     /**
      * Creates new form InventoryUi
      */
-    public InventoryUi(final MagnusOpus superUi) {
+    public InventoryUi(final MagnumOpus superUi) {
         initComponents();
         initTable();
         inventoryPendingUi = new InventoryPendingUi(this);

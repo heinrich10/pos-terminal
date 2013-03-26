@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <insert id = "saveTransaction" parameterType="OMS.domain.Transaction" useGeneratedKeys="true" keyProperty="tranId">
         insert into 
-        OMS_TRANSACTION(
+        oms_transaction(
         create_date, 
         update_date, 
         update_user, 
@@ -27,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <insert id="saveOrderList" parameterType="map">
         insert into 
-        OMS_TRANSACTION_ORDER(
+        oms_transaction_order(
         create_date, 
         update_date, 
         update_user, 
@@ -59,9 +59,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         OT.time_stamp
 
         from
-        OMS_TRANSACTION OT
+        oms_transaction OT
         join
-        OMS_TRANSACTION_ORDER OTO
+        oms_transaction_order OTO
         on
         OT.code_transaction = OTO.code_transaction
         where

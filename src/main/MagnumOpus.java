@@ -4,6 +4,7 @@
  */
 package main;
 
+import IMS.view.InventoryEODUi;
 import IMS.view.InventoryUi;
 import OMS.view.MainUi;
 
@@ -11,14 +12,14 @@ import OMS.view.MainUi;
  *
  * @author Heinrich
  */
-public class MagnusOpus extends javax.swing.JFrame {
+public class MagnumOpus extends javax.swing.JFrame {
     private MainUi mainUi;
     private MaintenanceUi maintenanceUi;
     private InventoryUi inventoryUi;
     /**
      * Creates new form SuperUi
      */
-    public MagnusOpus() {
+    public MagnumOpus() {
         initComponents();
         
     }
@@ -35,6 +36,7 @@ public class MagnusOpus extends javax.swing.JFrame {
         jButtonPOS = new javax.swing.JButton();
         jButtonMaintenance = new javax.swing.JButton();
         jButtonInventory = new javax.swing.JButton();
+        jButtonEOD = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,6 +61,13 @@ public class MagnusOpus extends javax.swing.JFrame {
             }
         });
 
+        jButtonEOD.setText("EOD");
+        jButtonEOD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEODActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -70,6 +79,8 @@ public class MagnusOpus extends javax.swing.JFrame {
                 .addComponent(jButtonMaintenance, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonInventory, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonEOD, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -77,10 +88,11 @@ public class MagnusOpus extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButtonInventory, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jButtonMaintenance, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                        .addComponent(jButtonPOS, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonMaintenance, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                        .addComponent(jButtonInventory, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
+                    .addComponent(jButtonPOS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonEOD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 10, Short.MAX_VALUE))
         );
 
@@ -108,6 +120,12 @@ public class MagnusOpus extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButtonInventoryActionPerformed
 
+    private void jButtonEODActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEODActionPerformed
+        // TODO add your handling code here:
+        InventoryEODUi inventoryEODUi = new InventoryEODUi(this);
+        inventoryEODUi.setVisible(true);
+    }//GEN-LAST:event_jButtonEODActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -125,13 +143,13 @@ public class MagnusOpus extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MagnusOpus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MagnumOpus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MagnusOpus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MagnumOpus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MagnusOpus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MagnumOpus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MagnusOpus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MagnumOpus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         
@@ -139,11 +157,12 @@ public class MagnusOpus extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new MagnusOpus().setVisible(true);
+                new MagnumOpus().setVisible(true);
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonEOD;
     private javax.swing.JButton jButtonInventory;
     private javax.swing.JButton jButtonMaintenance;
     private javax.swing.JButton jButtonPOS;

@@ -51,7 +51,7 @@ public class MenuItemController {
             con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
      
             pst = con.prepareStatement(
-                    "SELECT  code, name FROM OMS_MI_TYPE");
+                    "SELECT  code, name FROM oms_mi_type");
           
             rs = pst.executeQuery();
             

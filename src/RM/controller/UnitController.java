@@ -37,7 +37,7 @@ public class UnitController {
             con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
      
             pst = con.prepareStatement(
-                    "SELECT  code_unit, name FROM CORE_UNITS");
+                    "SELECT  code_unit, name FROM core_units");
           
             rs = pst.executeQuery();
             
@@ -86,7 +86,7 @@ public class UnitController {
             con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
             
             pst = con.prepareStatement(
-                    "select code_post_unit, conversion_factor from CORE_UNITS where code_unit = ?");
+                    "select code_post_unit, conversion_factor from core_units where code_unit = ?");
             
             pst.setString(1, inventory.getUnitCode());
             
