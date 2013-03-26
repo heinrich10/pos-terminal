@@ -50,7 +50,7 @@ public class RecipeController {
             con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
      
             pst = con.prepareStatement(
-                    "SELECT  OMR.code_menu, OMR.code_ingredient, IIC.name, quantity, OMR.unit, CU.name FROM OMS_MI_RECIPE OMR join IM_INGREDIENT_CODE IIC on OMR.code_ingredient = IIC.code join CORE_UNITS CU on OMR.unit = CU.code_unit where code_menu = ?");
+                    "SELECT  OMR.code_menu, OMR.code_ingredient, IIC.name, quantity, OMR.unit, CU.name FROM oms_mi_recipe OMR join im_ingredient_code IIC on OMR.code_ingredient = IIC.code join core_units CU on OMR.unit = CU.code_unit where code_menu = ?");
             
             pst.setString(1, menuItem.getCode());
             

@@ -16,7 +16,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.table.DefaultTableModel;
-import main.MagnusOpus;
+import main.MagnumOpus;
 
 /**
  *
@@ -27,13 +27,13 @@ public class MainUi extends javax.swing.JFrame {
     private MenuUi orderUi;
     private CashUi cashUi;
     private TransactionController transactionController;
-    private MagnusOpus superUi;
+    private MagnumOpus superUi;
     
     /**
      * Creates new form MainUi
      */
     
-    public MainUi(final MagnusOpus superUi){
+    public MainUi(final MagnumOpus superUi){
         transactionController = new TransactionController();
         initComponents();
         orderUi = new MenuUi(this, transactionController);

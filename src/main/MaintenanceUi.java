@@ -16,11 +16,11 @@ import java.awt.event.WindowEvent;
 public class MaintenanceUi extends javax.swing.JFrame {
     private IngredientCodeUi ingredientCodeUi;
     private MenuItemUi menuItemUi;
-    private MagnusOpus superUi;
+    private MagnumOpus superUi;
     /**
      * Creates new form MaintenanceUi
      */
-    public MaintenanceUi(final MagnusOpus superUi) {
+    public MaintenanceUi(final MagnumOpus superUi) {
         initComponents();
         ingredientCodeUi = new IngredientCodeUi();
         this.superUi = superUi;

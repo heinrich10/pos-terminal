@@ -98,19 +98,4 @@ public class ExcelService {
             
         
     }
-    
-    public static void main(String[] args){
-        ExcelService test = new ExcelService("D:\\report.xls");
-        String[] col = {"Time", "Transaction Number", "Dine in", "Item Ordered", "Price", "Total Amount"};
-        Sheet sheet = test.createSheet("test");
-        test.setColumnName(col, sheet);
-        ArrayList<TransactionData> arrList = null;
-        try (SqlSession session = SessionFactory.getSqlSession().openSession()) {
-
-            TransactionMapper mapper = session.getMapper(TransactionMapper.class);
-            arrList = mapper.loadTransactionReport("2013-03-25");
-        }
-        test.setTransactionData(arrList, sheet);
-        test.createExcel();
-    }
 }

@@ -28,11 +28,11 @@ public class RecipeService {
             DBEntity db = new DBEntity();
             con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
                 
-           // String query = "insert into OMS_MI_RECIPE(create_date, update_date, update_user, update_program, code_menu, code_ingredient, quantity, unit) values (?, ?, ?, ?, ?, ?, ?, ?) on duplicate key update quantity = ?, update_date = ?";
+           // String query = "insert into oms_mi_recipe(create_date, update_date, update_user, update_program, code_menu, code_ingredient, quantity, unit) values (?, ?, ?, ?, ?, ?, ?, ?) on duplicate key update quantity = ?, update_date = ?";
             //PreparedStatement pst = con.prepareStatement(query);
                 
             for(int i = 0; i < recipe.size(); i++){
-                String query = "insert into OMS_MI_RECIPE(create_date, update_date, update_user, update_program, code_menu, code_ingredient, quantity, unit) values (?, ?, ?, ?, ?, ?, ?, ?) on duplicate key update quantity = ?, update_date = ?, unit = ?";
+                String query = "insert into oms_mi_recipe(create_date, update_date, update_user, update_program, code_menu, code_ingredient, quantity, unit) values (?, ?, ?, ?, ?, ?, ?, ?) on duplicate key update quantity = ?, update_date = ?, unit = ?";
                 pst = con.prepareStatement(query);    
                 pst.setDate(1, new java.sql.Date(new java.util.Date().getTime()));
                 pst.setDate(2, new java.sql.Date(new java.util.Date().getTime()));
@@ -84,7 +84,7 @@ public class RecipeService {
             DBEntity db = new DBEntity();
             con = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPassword());
                 
-            String query = "delete from OMS_MI_RECIPE where code_menu = ? and code_ingredient = ?";
+            String query = "delete from oms_mi_recipe where code_menu = ? and code_ingredient = ?";
             pst = con.prepareStatement(query);
                 
             for(int i = 0; i < recipe.size(); i++){
