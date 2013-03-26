@@ -6,6 +6,7 @@ package db.mapper;
 
 import IMS.domain.Inventory;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -21,10 +22,13 @@ public interface InventoryMapper {
     
     void saveInventoryPending(Inventory inventory);
     
-    void deleteInventoryPending(long Index);
+    void deleteInventoryPending(long itemNumber);
+    
+    void deleteInventory(long itemNumber);
     
     void saveToInventory(Inventory inventory);
     
     void addPendingHist(Inventory inventory);
     
+    void updateInventory(long itemNumber, int quantity);
 }

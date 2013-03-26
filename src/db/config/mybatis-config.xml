@@ -17,5 +17,6 @@
     <mappers>
         <mapper resource="db/mapperxml/InventoryMapperXml.xml"/>
         <mapper resource="db/mapperxml/IngredientMapperXml.xml"/>
+        <mapper resource="db/mapperxml/TransactionMapperXml.xml"/>
     </mappers>
 </configuration>

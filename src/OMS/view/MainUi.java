@@ -257,7 +257,6 @@ public class MainUi extends javax.swing.JFrame {
                 == JOptionPane.OK_OPTION){
             transactionController.saveTransaction();
             cashUi.reset();
-            transactionController.resetTransaction();
             refreshTable();
         }
         
@@ -285,6 +284,8 @@ public class MainUi extends javax.swing.JFrame {
         // TODO add your handling code here:
         cashUi.reset();
         transactionController.resetTransaction();
+        jRadioButtonIn.setSelected(true);
+        jRadioButtonOut.setSelected(false);
         refreshTable();
     }//GEN-LAST:event_jButtonCancelActionPerformed
     

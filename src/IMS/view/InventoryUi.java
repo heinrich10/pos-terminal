@@ -6,21 +6,11 @@ package IMS.view;
 
 import IMS.controller.InventoryController;
 import IMS.domain.Inventory;
-import RM.domain.Ingredient;
-import db.mapper.InventoryMapper;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import main.MagnusOpus;
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 /**
  *

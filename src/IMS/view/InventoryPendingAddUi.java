@@ -4,7 +4,7 @@
  */
 package IMS.view;
 
-import IMS.controller.IngredientCodeController;
+import IMS.controller.IngredientController;
 import IMS.controller.InventoryController;
 import IMS.domain.IngredientCode;
 import IMS.domain.Inventory;
@@ -155,7 +155,7 @@ public class InventoryPendingAddUi extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private void loadIngredientCode(){
         
-        IngredientCodeController icc = new IngredientCodeController();
+        IngredientController icc = new IngredientController();
        
         arrIngredientCode = icc.loadIngredientCode();
         

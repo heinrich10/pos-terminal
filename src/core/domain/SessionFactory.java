@@ -9,7 +9,6 @@ import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
@@ -19,9 +18,9 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
  */
 public class SessionFactory {
     
-    public static SqlSessionFactory getSqlSession(){
-        SqlSessionFactory sqlSessionFactory = null;
-        
+    private static SqlSessionFactory sqlSessionFactory;
+    
+    static{
         try {
             String resource = "db/config/mybatis-config.xml";
             InputStream inputStream = Resources.getResourceAsStream(resource);
@@ -29,8 +28,10 @@ public class SessionFactory {
         } catch (IOException ex) {
             Logger.getLogger(SessionFactory.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+    }
+    
+    
+    public static SqlSessionFactory getSqlSession(){
         return sqlSessionFactory;
-        
     }
 }

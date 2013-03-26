@@ -4,7 +4,7 @@
  */
 package RM.controller;
 
-import IMS.controller.IngredientCodeController;
+import IMS.controller.IngredientController;
 import IMS.domain.IngredientCode;
 import OMS.controller.MenuController;
 import OMS.domain.MenuItem;
@@ -27,11 +27,11 @@ import java.util.logging.Logger;
  */
 public class RecipeController {
     
-    private IngredientCodeController ingredientCodeController;
+    private IngredientController ingredientCodeController;
     private RecipeService recipeService;
     
     public RecipeController(){
-        ingredientCodeController = new IngredientCodeController();
+        ingredientCodeController = new IngredientController();
         recipeService = new RecipeService();
     }
     
@@ -83,7 +83,7 @@ public class RecipeController {
                 }
                 
             } catch (SQLException ex) {
-                Logger.getLogger(IngredientCodeController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(IngredientController.class.getName()).log(Level.SEVERE, null, ex);
             }
             
         }

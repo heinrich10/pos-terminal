@@ -4,7 +4,7 @@
  */
 package IMS.view;
 
-import IMS.controller.IngredientCodeController;
+import IMS.controller.IngredientController;
 import IMS.domain.IngredientCode;
 import IMS.domain.IngredientType;
 import java.util.ArrayList;
@@ -19,12 +19,12 @@ public class IngredientCodeAddUi extends javax.swing.JFrame {
     
     private ArrayList<IngredientType> arrIngredientType;
     private IngredientCodeUi ingredientCodeUi;
-    private IngredientCodeController ingredientCodeController;
+    private IngredientController ingredientCodeController;
     /**
      * Creates new form IngredientCodeAddUi
      */
     
-    IngredientCodeAddUi(IngredientCodeUi ingredientCodeUi, IngredientCodeController ingredientCodeController) {
+    IngredientCodeAddUi(IngredientCodeUi ingredientCodeUi, IngredientController ingredientCodeController) {
         this.ingredientCodeUi = ingredientCodeUi;
         this.ingredientCodeController = ingredientCodeController;
         initComponents();
