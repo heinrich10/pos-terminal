@@ -136,7 +136,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         #{code}, 
         #{brand}, 
         #{name}, 
-        #{type})
+        #{typeCode})
     </insert>
     
     <delete id="deleteIngredientCode" parameterType="String">

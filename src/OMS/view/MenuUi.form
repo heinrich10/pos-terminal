@@ -18,13 +18,23 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" attributes="0">
+                      <Component id="menuButton21" min="-2" pref="110" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="menuButton22" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="menuButton17" min="-2" pref="110" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="menuButton18" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
                       <Component id="menuButton13" min="-2" pref="110" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="menuButton14" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <Component id="menuButton9" min="-2" pref="110" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="menuButton10" max="32767" attributes="0"/>
@@ -60,7 +70,17 @@
                   <Group type="102" attributes="0">
                       <Component id="menuButton15" min="-2" pref="110" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="menuButton16" max="32767" attributes="0"/>
+                      <Component id="menuButton16" min="-2" pref="110" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="menuButton19" min="-2" pref="110" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="menuButton20" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="menuButton23" min="-2" pref="110" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="menuButton24" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -93,10 +113,24 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="menuButton15" pref="70" max="32767" attributes="0"/>
+                  <Component id="menuButton16" pref="70" max="32767" attributes="0"/>
                   <Component id="menuButton14" max="32767" attributes="0"/>
                   <Component id="menuButton13" max="32767" attributes="0"/>
-                  <Component id="menuButton16" max="32767" attributes="0"/>
+                  <Component id="menuButton15" alignment="0" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="menuButton17" pref="70" max="32767" attributes="0"/>
+                  <Component id="menuButton18" max="32767" attributes="0"/>
+                  <Component id="menuButton19" max="32767" attributes="0"/>
+                  <Component id="menuButton20" alignment="0" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="menuButton21" pref="70" max="32767" attributes="0"/>
+                  <Component id="menuButton22" max="32767" attributes="0"/>
+                  <Component id="menuButton23" max="32767" attributes="0"/>
+                  <Component id="menuButton24" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -209,6 +243,46 @@
     <Component class="javax.swing.JButton" name="menuButton16">
       <Properties>
         <Property name="text" type="java.lang.String" value="Menu 16"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="menuButton17">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Menu 17"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="menuButton18">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Menu 18"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="menuButton19">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Menu 19"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="menuButton20">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Menu 20"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="menuButton21">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Menu 21"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="menuButton22">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Menu 22"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="menuButton23">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Menu 23"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="menuButton24">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Menu 24"/>
       </Properties>
     </Component>
   </SubComponents>

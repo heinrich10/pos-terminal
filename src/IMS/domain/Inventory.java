@@ -22,6 +22,8 @@ public class Inventory {
     private double totalPrice;
     private Date date;
     private Date roastDate;
+    private Date expDate;
+    private String comment;
     
     public Inventory(long itemNumber, String name, String codeIngredient, int quantity, double unitPrice, String unit, String unitCode, double totalPrice, Date date){
         this.itemNumber = itemNumber;
@@ -75,6 +77,14 @@ public class Inventory {
         return roastDate;
     }
     
+    public Date getExpDate(){
+        return expDate;
+    }
+    
+    public String getComment(){
+        return comment;
+    }
+    
     public void setUnitCode(String unitCode){
         this.unitCode = unitCode;
     }
@@ -89,6 +99,14 @@ public class Inventory {
     
     public void setRoastDate(Date roastDate){
         this.roastDate = roastDate;
+    }
+    
+    public void setExpDate(Date expDate){
+        this.expDate = expDate;
+    }
+    
+    public void setComment(String comment){
+        this.comment = comment;
     }
 
     

@@ -66,6 +66,14 @@ public class MenuUi extends javax.swing.JPanel {
         menuButton14 = new javax.swing.JButton();
         menuButton15 = new javax.swing.JButton();
         menuButton16 = new javax.swing.JButton();
+        menuButton17 = new javax.swing.JButton();
+        menuButton18 = new javax.swing.JButton();
+        menuButton19 = new javax.swing.JButton();
+        menuButton20 = new javax.swing.JButton();
+        menuButton21 = new javax.swing.JButton();
+        menuButton22 = new javax.swing.JButton();
+        menuButton23 = new javax.swing.JButton();
+        menuButton24 = new javax.swing.JButton();
 
         menuButton1.setText("Menu 1");
         menuButton1.setMaximumSize(new java.awt.Dimension(70, 50));
@@ -108,26 +116,50 @@ public class MenuUi extends javax.swing.JPanel {
 
         menuButton16.setText("Menu 16");
 
+        menuButton17.setText("Menu 17");
+
+        menuButton18.setText("Menu 18");
+
+        menuButton19.setText("Menu 19");
+
+        menuButton20.setText("Menu 20");
+
+        menuButton21.setText("Menu 21");
+
+        menuButton22.setText("Menu 22");
+
+        menuButton23.setText("Menu 23");
+
+        menuButton24.setText("Menu 24");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(menuButton21, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(menuButton22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(menuButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(menuButton18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(menuButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(menuButton14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(menuButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(menuButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(menuButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(menuButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(menuButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(menuButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -148,7 +180,15 @@ public class MenuUi extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(menuButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(menuButton16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(menuButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(menuButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(menuButton20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(menuButton23, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(menuButton24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -174,10 +214,22 @@ public class MenuUi extends javax.swing.JPanel {
                     .addComponent(menuButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(menuButton15, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                    .addComponent(menuButton16, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
                     .addComponent(menuButton14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(menuButton13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(menuButton16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(menuButton15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(menuButton17, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                    .addComponent(menuButton18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(menuButton19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(menuButton20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(menuButton21, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                    .addComponent(menuButton22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(menuButton23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(menuButton24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -191,7 +243,15 @@ public class MenuUi extends javax.swing.JPanel {
     private javax.swing.JButton menuButton14;
     private javax.swing.JButton menuButton15;
     private javax.swing.JButton menuButton16;
+    private javax.swing.JButton menuButton17;
+    private javax.swing.JButton menuButton18;
+    private javax.swing.JButton menuButton19;
     private javax.swing.JButton menuButton2;
+    private javax.swing.JButton menuButton20;
+    private javax.swing.JButton menuButton21;
+    private javax.swing.JButton menuButton22;
+    private javax.swing.JButton menuButton23;
+    private javax.swing.JButton menuButton24;
     private javax.swing.JButton menuButton3;
     private javax.swing.JButton menuButton4;
     private javax.swing.JButton menuButton5;
@@ -272,7 +332,7 @@ public class MenuUi extends javax.swing.JPanel {
                 menuButton1ActionPerformed(getRecipe());
             }
         });
-        menuButton10.setText(arrRecipe.get(9).getName());
+        menuButton9.setText(arrRecipe.get(8).getName());
         
         menuButton10.addActionListener(new ButtonListener(arrRecipe.get(9)) {
            @Override
@@ -280,7 +340,7 @@ public class MenuUi extends javax.swing.JPanel {
                 menuButton1ActionPerformed(getRecipe());
             }
         });
-        menuButton11.setText(arrRecipe.get(10).getName());
+        menuButton10.setText(arrRecipe.get(9).getName());
         
         menuButton11.addActionListener(new ButtonListener(arrRecipe.get(10)) {
            @Override
@@ -288,7 +348,7 @@ public class MenuUi extends javax.swing.JPanel {
                 menuButton1ActionPerformed(getRecipe());
             }
         });
-        menuButton12.setText(arrRecipe.get(11).getName());
+        menuButton11.setText(arrRecipe.get(10).getName());
         
         menuButton12.addActionListener(new ButtonListener(arrRecipe.get(11)) {
            @Override
@@ -296,7 +356,7 @@ public class MenuUi extends javax.swing.JPanel {
                 menuButton1ActionPerformed(getRecipe());
             }
         });
-        menuButton13.setText(arrRecipe.get(12).getName());
+        menuButton12.setText(arrRecipe.get(11).getName());
         
         menuButton13.addActionListener(new ButtonListener(arrRecipe.get(12)) {
            @Override
@@ -304,7 +364,7 @@ public class MenuUi extends javax.swing.JPanel {
                 menuButton1ActionPerformed(getRecipe());
             }
         });
-        menuButton14.setText(arrRecipe.get(13).getName());
+        menuButton13.setText(arrRecipe.get(12).getName());
         
         menuButton14.addActionListener(new ButtonListener(arrRecipe.get(13)) {
            @Override
@@ -312,7 +372,7 @@ public class MenuUi extends javax.swing.JPanel {
                 menuButton1ActionPerformed(getRecipe());
             }
         });
-        menuButton15.setText(arrRecipe.get(14).getName());
+        menuButton14.setText(arrRecipe.get(13).getName());
         
         menuButton15.addActionListener(new ButtonListener(arrRecipe.get(14)) {
            @Override
@@ -320,7 +380,7 @@ public class MenuUi extends javax.swing.JPanel {
                 menuButton1ActionPerformed(getRecipe());
             }
         });
-        menuButton16.setText(arrRecipe.get(15).getName());
+        menuButton15.setText(arrRecipe.get(14).getName());
         
         menuButton16.addActionListener(new ButtonListener(arrRecipe.get(15)) {
            @Override
@@ -329,6 +389,71 @@ public class MenuUi extends javax.swing.JPanel {
             }
         });
         
+        menuButton16.setText(arrRecipe.get(15).getName());
+        
+        menuButton17.addActionListener(new ButtonListener(arrRecipe.get(16)) {
+           @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuButton1ActionPerformed(getRecipe());
+            }
+        });
+        menuButton17.setText(arrRecipe.get(16).getName());
+        
+        menuButton18.addActionListener(new ButtonListener(arrRecipe.get(17)) {
+           @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuButton1ActionPerformed(getRecipe());
+            }
+        });
+        menuButton18.setText(arrRecipe.get(17).getName());
+        
+        menuButton19.addActionListener(new ButtonListener(arrRecipe.get(18)) {
+           @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuButton1ActionPerformed(getRecipe());
+            }
+        });
+        menuButton19.setText(arrRecipe.get(18).getName());
+        
+        menuButton20.addActionListener(new ButtonListener(arrRecipe.get(19)) {
+           @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuButton1ActionPerformed(getRecipe());
+            }
+        });
+        menuButton20.setText(arrRecipe.get(19).getName());
+        
+        menuButton21.addActionListener(new ButtonListener(arrRecipe.get(20)) {
+           @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuButton1ActionPerformed(getRecipe());
+            }
+        });
+        menuButton21.setText(arrRecipe.get(20).getName());
+        
+        menuButton22.addActionListener(new ButtonListener(arrRecipe.get(21)) {
+           @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuButton1ActionPerformed(getRecipe());
+            }
+        });
+        menuButton22.setText(arrRecipe.get(21).getName());
+        
+        menuButton23.addActionListener(new ButtonListener(arrRecipe.get(22)) {
+           @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuButton1ActionPerformed(getRecipe());
+            }
+        });
+        menuButton23.setText(arrRecipe.get(2).getName());
+        
+        menuButton24.addActionListener(new ButtonListener(arrRecipe.get(23)) {
+           @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuButton1ActionPerformed(getRecipe());
+            }
+        });
+        menuButton24.setText(arrRecipe.get(23).getName());
     }
   
     private void menuButton1ActionPerformed(MenuItem menuItem) {

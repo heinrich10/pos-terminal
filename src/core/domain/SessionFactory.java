@@ -17,21 +17,22 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
  * @author Heinrich
  */
 public class SessionFactory {
-    
+
     private static SqlSessionFactory sqlSessionFactory;
-    
-    static{
-        try {
-            String resource = "db/config/mybatis-config.xml";
-            InputStream inputStream = Resources.getResourceAsStream(resource);
-            sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-        } catch (IOException ex) {
-            Logger.getLogger(SessionFactory.class.getName()).log(Level.SEVERE, null, ex);
+
+    public static SqlSessionFactory getSqlSession() {
+
+        if (sqlSessionFactory == null) {
+            try {
+                System.out.println("Session Factory loaded");
+                String resource = "db/config/mybatis-config.xml";
+                InputStream inputStream = Resources.getResourceAsStream(resource);
+                sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+            } catch (IOException ex) {
+                Logger.getLogger(SessionFactory.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-    }
-    
-    
-    public static SqlSessionFactory getSqlSession(){
+
         return sqlSessionFactory;
     }
 }

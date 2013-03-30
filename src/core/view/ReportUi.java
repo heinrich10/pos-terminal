@@ -38,7 +38,7 @@ public class ReportUi extends javax.swing.JFrame {
         jTextFieldDate = new javax.swing.JTextField();
         jButtonAccept = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Date (YYYY - MM - DD)");
 
@@ -82,19 +82,20 @@ public class ReportUi extends javax.swing.JFrame {
     private void jButtonAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAcceptActionPerformed
         // TODO add your handling code here:
         String date = jTextFieldDate.getText();
-        ExcelService test = new ExcelService("D:\\report" + date + ".xls");
+        ExcelService excelService = new ExcelService("C:\\Magnum Opus\\Sales\\Daily Transaction Report\\report" + date + ".xls");
         String[] col = {"Time", "Transaction Number", "Dine in", "Item Ordered", "Price", "Total Amount"};
-        Sheet sheet = test.createSheet("test");
-        test.setColumnName(col, sheet);
+        Sheet sheet = excelService.createSheet("report" + date);
+        excelService.setColumnName(col, sheet);
         ArrayList<TransactionData> arrList = null;
         try (SqlSession session = SessionFactory.getSqlSession().openSession()) {
 
             TransactionMapper mapper = session.getMapper(TransactionMapper.class);
             arrList = mapper.loadTransactionReport(date);
         }
-        test.setTransactionData(arrList, sheet);
-        test.createExcel();
+        excelService.setTransactionData(arrList, sheet);
+        excelService.createExcel();
         this.dispose();
+        
         
         
     }//GEN-LAST:event_jButtonAcceptActionPerformed
