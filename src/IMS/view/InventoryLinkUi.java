@@ -52,17 +52,6 @@ public class InventoryLinkUi extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
         jScrollPane1.setViewportView(jTable1);
 
         jButtonAccept.setText("Accept");
@@ -71,6 +60,12 @@ public class InventoryLinkUi extends javax.swing.JFrame {
                 jButtonAcceptActionPerformed(evt);
             }
         });
+
+        jTextFieldIngredientCode.setEditable(false);
+
+        jTextFieldInventoryA.setEditable(false);
+
+        jTextFieldInventoryB.setEditable(false);
 
         jButtonAddA.setText("Add");
         jButtonAddA.addActionListener(new java.awt.event.ActionListener() {

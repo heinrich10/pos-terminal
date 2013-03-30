@@ -7,6 +7,7 @@ package IMS.view;
 import IMS.controller.InventoryController;
 import IMS.domain.Inventory;
 import RM.controller.UnitController;
+import java.awt.Component;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -122,23 +125,32 @@ public class InventoryPendingUi extends javax.swing.JFrame {
     private void jButtonDeliveredActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeliveredActionPerformed
         // TODO add your handling code here:
        
-        try {
-            String roastDate = JOptionPane.showInputDialog("Roast Date? Format: (YYYY-MM-DD)");
-            Inventory inventory = arrInventory.get(jTable1.getSelectedRow());
-            Date date = new SimpleDateFormat("yyyy-MM-d", Locale.ENGLISH).parse(roastDate);
-            inventory.setRoastDate(new java.sql.Date(date.getTime()));
-          
-            UnitController unitController = new UnitController();
+        //try {
+            String roastDate = null;
+            String expDate = null;
+            String comment =null ;
+            InventoryPendingAddtlInfo inventoryPendingAddtlInfo = new InventoryPendingAddtlInfo();
+            JOptionPane.showConfirmDialog(null, inventoryPendingAddtlInfo, "test", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
             
-            inventory = unitController.loadPostUnit(inventory);
-            
-            inventoryController.moveToInventory(inventory);
-            initTable();
-            inventoryUi.initTable();
-            
-        } catch (ParseException ex) {
-            Logger.getLogger(InventoryPendingUi.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            System.out.println(inventoryPendingAddtlInfo.getRoastDate());
+            System.out.println(inventoryPendingAddtlInfo.getExpDate());
+            System.out.println(inventoryPendingAddtlInfo.getComment());
+////            String roastDate = JOptionPane.showInputDialog("Roast Date? Format: (YYYY-MM-DD)");
+////            Inventory inventory = arrInventory.get(jTable1.getSelectedRow());
+////            Date date = new SimpleDateFormat("yyyy-MM-d", Locale.ENGLISH).parse(roastDate);
+////            inventory.setRoastDate(new java.sql.Date(date.getTime()));
+////          
+////            UnitController unitController = new UnitController();
+////            
+////            inventory = unitController.loadPostUnit(inventory);
+////            
+////            inventoryController.moveToInventory(inventory);
+////            initTable();
+////            inventoryUi.initTable();
+//            
+//        } catch (ParseException ex) {
+//            Logger.getLogger(InventoryPendingUi.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         
         
         

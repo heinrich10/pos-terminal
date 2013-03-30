@@ -145,6 +145,7 @@ public class MainUi extends javax.swing.JFrame {
         jButtonComplete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setExtendedState(6);
 
         jButtonCancel.setText("Cancel Transaction");
         jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
